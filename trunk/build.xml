@@ -16,7 +16,7 @@
         <delete dir="${xcache-classes}" />
         <mkdir dir="${xcache-classes}" />
 
-        <javac srcdir="${xcache-source}" destdir="${xcache-classes}" debug="true" optimize="true" deprecation="true">
+        <javac srcdir="${xcache-source}" destdir="${xcache-classes}" debug="true" optimize="true" deprecation="true" encoding="UTF-8">
             <classpath refid="class.path" />
         </javac>
 
