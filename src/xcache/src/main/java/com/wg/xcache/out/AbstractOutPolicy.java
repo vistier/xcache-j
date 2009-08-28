@@ -71,14 +71,11 @@ public abstract class AbstractOutPolicy implements OutPolicy {
         // ----------------------------------------------
         // 计算候选人数量：
         // 如果有0个元素，没有候选人；
-        // 如果有1个元素，有1个候选人；
-        // 如果大于1个元素，小于10000个元素，最多10个候选人；
+        // 如果大于0个元素，小于10000个元素，最多10个候选人；
         // 如果大于10000个元素，最多100个候选人。
         // ----------------------------------------------
         if (amount == 0) {
             return null;
-        } else if (amount == 1) {
-            candidateAmount = 1;
         } else if (amount < 10000) {
             candidateAmount = Math.min(amount, 10);
         } else {
