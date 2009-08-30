@@ -14,6 +14,8 @@ public class ElementTest extends TestCase {
     public void testIsExpireLiveTime() {
         Element element = new Element("key", "value", 100L, 0L);
         
+        assertFalse(element.isExpire());
+        
         try {
             Thread.sleep(200L);
         } catch (InterruptedException e) {
@@ -29,6 +31,8 @@ public class ElementTest extends TestCase {
     public void testIsExpireIdleTime() {
         Element element = new Element("key", "value", 0L, 100L);
         
+        assertFalse(element.isExpire());
+        
         try {
             Thread.sleep(200L);
         } catch (InterruptedException e) {
@@ -38,6 +42,8 @@ public class ElementTest extends TestCase {
         assertTrue(element.isExpire());
         
         element.refreshAccessStat();
+        
+        assertFalse(element.isExpire());
         
         try {
             Thread.sleep(200L);
