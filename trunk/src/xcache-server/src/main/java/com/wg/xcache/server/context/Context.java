@@ -6,4 +6,10 @@ package com.wg.xcache.server.context;
  */
 public class Context {
 
+    /** 请求 */
+    protected Request  request;
+
+    /** 响应 */
+    protected Response response;
+
 }
