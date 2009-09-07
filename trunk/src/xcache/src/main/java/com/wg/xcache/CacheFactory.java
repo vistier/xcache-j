@@ -3,6 +3,7 @@ package com.wg.xcache;
 import java.util.Timer;
 
 import com.wg.xcache.config.CacheConfig;
+import com.wg.xcache.task.AbstractTask;
 import com.wg.xcache.task.DeleteExpireElementTask;
 import com.wg.xcache.task.LogCacheStatTask;
 
@@ -38,9 +39,8 @@ public class CacheFactory {
         CacheSuite cacheSuite = new CacheSuite();
 
         Cache cache = this.createCache(cacheConfig);
-        DeleteExpireElementTask deleteExpireElementTask = this.initDeleteExpireElementTask(
-                cacheConfig, cache);
-        LogCacheStatTask logCacheStatTask = this.initLogCacheStatTask(cacheConfig, cache);
+        AbstractTask deleteExpireElementTask = this.initDeleteExpireElementTask(cacheConfig, cache);
+        AbstractTask logCacheStatTask = this.initLogCacheStatTask(cacheConfig, cache);
 
         cacheSuite.setCache(cache);
         cacheSuite.setDeleteExpireElementTask(deleteExpireElementTask);
@@ -66,8 +66,8 @@ public class CacheFactory {
      * @param cache 缓存
      * @return 删除过期缓存元素任务
      */
-    private DeleteExpireElementTask initDeleteExpireElementTask(CacheConfig cacheConfig, Cache cache) {
-        DeleteExpireElementTask task = null;
+    private AbstractTask initDeleteExpireElementTask(CacheConfig cacheConfig, Cache cache) {
+        AbstractTask task = null;
 
         if (cacheConfig.getDeleteExpireElementInterval() > 0L) {
             task = new DeleteExpireElementTask(cache);
@@ -86,8 +86,8 @@ public class CacheFactory {
      * @param cache 缓存
      * @return 记录缓存统计信息任务
      */
-    private LogCacheStatTask initLogCacheStatTask(CacheConfig cacheConfig, Cache cache) {
-        LogCacheStatTask task = null;
+    private AbstractTask initLogCacheStatTask(CacheConfig cacheConfig, Cache cache) {
+        AbstractTask task = null;
 
         if (cacheConfig.getLogCacheStatInterval() > 0L) {
             task = new LogCacheStatTask(cache);
