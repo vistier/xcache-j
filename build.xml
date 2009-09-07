@@ -3,7 +3,7 @@
 <project name="xcache" default="default">
     <property name="xcache-source" value="src/xcache/src/main/java" />
     <property name="xcache-classes" value="target/classes/xcache" />
-    <property name="xcache-jar" value="dist/xcache-1.0.jar" />
+    <property name="xcache-jar" value="dist/xcache/xcache-1.0.jar" />
     <property name="lib" value="lib" />
 
     <path id="class.path">
