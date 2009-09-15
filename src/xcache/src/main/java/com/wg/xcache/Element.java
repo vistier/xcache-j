@@ -66,7 +66,7 @@ public class Element {
         long now = System.currentTimeMillis();
 
         // -----------------------------------
-        // 使用生存时间和空闲时间判断是是否过期
+        // 使用生存时间和空闲时间判断是否过期
         // -----------------------------------
 
         if (this.liveTime > 0L) {
