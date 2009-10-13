@@ -18,10 +18,16 @@ public class Xserver {
     private ServerSupporter serverSupporter;
 
     /** Socket处理器 */
-    private SocketHandler   socketHandler;
+    private SocketHandler[] socketHandlers;
+
+    /** socket处理器数量 */
+    private int             socketHandlerCount;
 
     /** 接收器 */
     private Acceptor        acceptor;
+
+    /** 已接收的次数 */
+    private int             acceptedTimes;
 
     /**
      * 创建Xserver
@@ -29,7 +35,13 @@ public class Xserver {
      */
     public Xserver(ServerSupporter serverSupporter) {
         this.serverSupporter = serverSupporter;
-        this.socketHandler = new SocketHandler(serverSupporter);
+
+        this.socketHandlerCount = serverSupporter.getServerConfig().getSocketHandlerCount();
+        this.socketHandlers = new SocketHandler[this.socketHandlerCount];
+
+        for (int i = 0; i < this.socketHandlerCount; i++) {
+            this.socketHandlers[i] = new SocketHandler(serverSupporter);
+        }
     }
 
     /**
@@ -61,13 +73,14 @@ public class Xserver {
 
                 while (serverSupporter.isRunning()) {
                     SocketChannel socketChannel = serverSocketChannel.accept();
-                    socketHandler.bind(socketChannel);
+
+                    // 对socket负载均衡处理
+                    socketHandlers[acceptedTimes++ % socketHandlerCount].bind(socketChannel);
                 }
             } catch (Exception e) {
                 // TODO log
             }
         }
-
     }
 
 }

@@ -1,6 +1,7 @@
 package com.wg.xserver.context;
 
 import java.nio.ByteBuffer;
+import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -17,6 +18,9 @@ public class Context {
     /** 服务器支持者 */
     private ServerSupporter   serverSupporter;
 
+    /** 选择键 */
+    private SelectionKey      key;
+
     /** 已经收到消息的队列 */
     private Queue<ByteBuffer> receivedMessageQueue = new ConcurrentLinkedQueue<ByteBuffer>();
 
@@ -30,7 +34,7 @@ public class Context {
     public void receive(ByteBuffer message) {
         this.receivedMessageQueue.add(message);
     }
-    
+
     /**
      * 发送消息
      * @param message 消息
@@ -38,7 +42,7 @@ public class Context {
     public void send(ByteBuffer message) {
         this.sendingMessageQueue.add(message);
     }
-    
+
     /**
      * 获取socket通道
      * @return socket通道
@@ -70,6 +74,22 @@ public class Context {
      */
     public void setServerSupporter(ServerSupporter serverSupporter) {
         this.serverSupporter = serverSupporter;
+    }
+
+    /**
+     * 获取选择键
+     * @return 选择键
+     */
+    public SelectionKey getKey() {
+        return key;
+    }
+
+    /**
+     * 设置选择键
+     * @param key 选择键
+     */
+    public void setKey(SelectionKey key) {
+        this.key = key;
     }
 
 }

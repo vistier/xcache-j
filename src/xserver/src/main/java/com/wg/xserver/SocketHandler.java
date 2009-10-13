@@ -7,6 +7,7 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import com.wg.xserver.context.Context;
 import com.wg.xserver.context.ServerSupporter;
 
 /**
@@ -35,6 +36,14 @@ public class SocketHandler {
         this.serverSupporter = serverSupporter;
     }
 
+    // ------------------------------------------------------------
+    // 处理器工作流程：
+    // 1、绑定socket通道；
+    // 2、启动处理线程；
+    // 3、处理前准备；
+    // 4、处理，或者读取，或者回写。
+    // ------------------------------------------------------------
+
     /**
      * 绑定socket通道
      * @param socketChannel socket通道
@@ -57,19 +66,57 @@ public class SocketHandler {
     }
 
     /**
-     * 处理准备
+     * 处理前准备
      */
-    private void prepare() {
+    protected void prepare() {
         SocketChannel socketChannel;
 
         while ((socketChannel = this.socketChannelQueue.poll()) != null) {
             try {
+                Context context = new Context();
+                context.setSocketChannel(socketChannel);
+                context.setServerSupporter(this.serverSupporter);
+
                 socketChannel.configureBlocking(false);
-                socketChannel.register(selector, SelectionKey.OP_READ);
+                context.setKey(socketChannel.register(selector, SelectionKey.OP_READ, context));
             } catch (Exception e) {
                 // TODO log
             }
         }
+    }
+
+    /**
+     * 处理
+     * @param keys 选择键
+     */
+    protected void handle(Set<SelectionKey> keys) {
+        for (SelectionKey key : keys) {
+            Context context = (Context) key.attachment();
+
+            if (key.isReadable()) {
+                this.read(context);
+            }
+
+            if (key.isWritable()) {
+                this.write(context);
+            }
+        }
+    }
+
+    /**
+     * 读取
+     * @param context 上下文
+     */
+    protected void read(Context context) {
+
+    }
+
+    /**
+     * 回写
+     * @param context 上下文
+     */
+    protected void write(Context context) {
+
     }
 
     /**
@@ -91,14 +138,8 @@ public class SocketHandler {
 
                     Set<SelectionKey> keys = selector.selectedKeys();
 
-                    for (SelectionKey key : keys) {
-                        if (key.isReadable()) {
-                            System.out.println("raad");
-                        } else if (key.isWritable()) {
-                            System.out.println("write");
-                        }
-                    }
-                    
+                    handle(keys);
+
                     keys.clear();
                 }
             } catch (Exception e) {

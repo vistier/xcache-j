@@ -16,6 +16,7 @@ public class XserverTest {
     public static void main(String[] args) {
         ServerConfig serverConfig = new ServerConfig();
         serverConfig.setPort(1234);
+        serverConfig.setSocketHandlerCount(2);
 
         DefaultCommandFactory defaultCommandFactory = new DefaultCommandFactory();
         CommandMessageHandler commandMessageHandler = new CommandMessageHandler();
