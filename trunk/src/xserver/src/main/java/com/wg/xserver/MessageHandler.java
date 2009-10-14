@@ -11,13 +11,6 @@ import com.wg.xserver.context.Context;
 public interface MessageHandler {
 
     /**
-     * 获取消息
-     * @param context 上下文
-     * @return 消息
-     */
-    ByteBuffer getMessage(Context context);
-
-    /**
      * 处理消息
      * @param message 消息
      * @param context 上下文

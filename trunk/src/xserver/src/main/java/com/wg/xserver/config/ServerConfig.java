@@ -12,6 +12,9 @@ public class ServerConfig {
     /** socket处理器数量 */
     private int SocketHandlerCount = 1;
 
+    /** 缓冲区大小 */
+    private int bufferSize         = 1024;
+
     /**
      * 获取端口
      * @return 端口
@@ -42,6 +45,22 @@ public class ServerConfig {
      */
     public void setSocketHandlerCount(int socketHandlerCount) {
         SocketHandlerCount = socketHandlerCount;
+    }
+
+    /**
+     * 获取缓冲区大小
+     * @return 缓冲区大小
+     */
+    public int getBufferSize() {
+        return bufferSize;
+    }
+
+    /**
+     * 设置缓冲区大小
+     * @param bufferSize 缓冲区大小
+     */
+    public void setBufferSize(int bufferSize) {
+        this.bufferSize = bufferSize;
     }
 
 }
