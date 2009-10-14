@@ -17,31 +17,17 @@ public class CommandMessageHandler implements MessageHandler {
 
     /*
      * (non-Javadoc)
-     * @see com.wg.xserver.MessageHandler#getMessage(com.wg.xserver.Context)
-     */
-    public ByteBuffer getMessage(Context context) {
-        ByteBuffer message = ByteBuffer.allocate(5);
-        
-        try {
-            context.getSocketChannel().read(message);
-            message.flip();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        
-        return message;
-    }
-
-    /*
-     * (non-Javadoc)
      * @see com.wg.xserver.MessageHandler#handle(java.nio.ByteBuffer,
      *      com.wg.xserver.Context)
      */
     public void handle(ByteBuffer message, Context context) {
-        CommandMessage commandMessage = new CommandMessage(message);
-        Command command = this.commandFactory.getCommand(commandMessage);
-        command.execute(commandMessage, context);
+        try {
+            message.flip();
+            context.getSocketChannel().write(message);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     /**

@@ -3,8 +3,10 @@ package com.wg.xserver;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.wg.xserver.context.Context;
@@ -17,16 +19,19 @@ import com.wg.xserver.context.ServerSupporter;
 public class SocketHandler {
 
     /** 服务器支持者 */
-    private ServerSupporter      serverSupporter;
+    private ServerSupporter            serverSupporter;
 
     /** 选择器 */
-    private Selector             selector;
+    private Selector                   selector;
 
     /** 处理器 */
-    private Handler              handler;
+    private Handler                    handler;
 
     /** socket通道队列 */
-    private Queue<SocketChannel> socketChannelQueue = new ConcurrentLinkedQueue<SocketChannel>(); ;
+    private Queue<SocketChannel>       socketChannelQueue     = new ConcurrentLinkedQueue<SocketChannel>();
+
+    /** 上下文关联的socket读取器Map */
+    private Map<Context, SocketReader> contextSocketReaderMap = new ConcurrentHashMap<Context, SocketReader>();
 
     /**
      * 创建Socket处理器
@@ -79,6 +84,9 @@ public class SocketHandler {
 
                 socketChannel.configureBlocking(false);
                 context.setKey(socketChannel.register(selector, SelectionKey.OP_READ, context));
+
+                SocketReader socketReader = new SocketReader(context);
+                this.contextSocketReaderMap.put(context, socketReader);
             } catch (Exception e) {
                 // TODO log
             }
@@ -108,7 +116,10 @@ public class SocketHandler {
      * @param context 上下文
      */
     protected void read(Context context) {
-
+//        context.getKey().interestOps(0);
+        
+        SocketReader socketReader = this.contextSocketReaderMap.get(context);
+        this.serverSupporter.getExecutor().execute(socketReader);
     }
 
     /**
@@ -146,7 +157,6 @@ public class SocketHandler {
                 // TODO log
             }
         }
-
     }
 
 }
