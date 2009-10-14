@@ -2,7 +2,6 @@ package com.wg.xserver;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.nio.channels.SelectionKey;
 
 import com.wg.xserver.context.Context;
 
@@ -45,8 +44,8 @@ public class SocketReader implements Runnable {
         } catch (IOException e) {
             // TODO log
         } finally {
-//            context.getKey().interestOps(SelectionKey.OP_READ);
-//            context.getKey().selector().wakeup();
+            // context.getKey().interestOps(SelectionKey.OP_READ);
+            // context.getKey().selector().wakeup();
         }
 
     }
