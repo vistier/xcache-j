@@ -67,6 +67,7 @@ public class SocketHandler {
             this.selector.wakeup();
         } catch (Exception e) {
             // TODO log
+            e.printStackTrace();
         }
     }
 
@@ -89,6 +90,7 @@ public class SocketHandler {
                 this.contextSocketReaderMap.put(context, socketReader);
             } catch (Exception e) {
                 // TODO log
+                e.printStackTrace();
             }
         }
     }
@@ -116,7 +118,7 @@ public class SocketHandler {
      * @param context 上下文
      */
     protected void read(Context context) {
-        context.getKey().interestOps(0);
+        context.suspendSelectRead();
 
         SocketReader socketReader = this.contextSocketReaderMap.get(context);
         this.serverSupporter.getExecutor().execute(socketReader);
@@ -143,7 +145,7 @@ public class SocketHandler {
         public void run() {
             try {
                 while (serverSupporter.isRunning()) {
-                    selector.select();
+                    selector.select(1000);
 
                     prepare();
 
@@ -155,6 +157,7 @@ public class SocketHandler {
                 }
             } catch (Exception e) {
                 // TODO log
+                e.printStackTrace();
             }
         }
     }
