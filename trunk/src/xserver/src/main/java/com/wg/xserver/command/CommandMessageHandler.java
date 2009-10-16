@@ -1,6 +1,5 @@
 package com.wg.xserver.command;
 
-import java.io.IOException;
 import java.nio.ByteBuffer;
 
 import com.wg.xserver.MessageHandler;
@@ -22,9 +21,8 @@ public class CommandMessageHandler implements MessageHandler {
      */
     public void handle(ByteBuffer message, Context context) {
         try {
-            message.flip();
             context.getSocketChannel().write(message);
-        } catch (IOException e) {
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

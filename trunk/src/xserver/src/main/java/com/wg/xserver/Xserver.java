@@ -79,6 +79,7 @@ public class Xserver {
                 }
             } catch (Exception e) {
                 // TODO log
+                e.printStackTrace();
             }
         }
     }

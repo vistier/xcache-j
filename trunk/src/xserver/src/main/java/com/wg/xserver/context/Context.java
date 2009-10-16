@@ -29,6 +29,7 @@ public class Context {
 
     /**
      * 接收消息
+     * 
      * @param message 消息
      */
     public void receive(ByteBuffer message) {
@@ -37,10 +38,39 @@ public class Context {
 
     /**
      * 发送消息
+     * 
      * @param message 消息
      */
     public void send(ByteBuffer message) {
         this.sendingMessageQueue.add(message);
+    }
+
+    /**
+     * 暂停选择读取
+     */
+    public void suspendSelectRead() {
+        this.key.interestOps(this.key.interestOps() & ~SelectionKey.OP_READ);
+    }
+
+    /**
+     * 继续选择读取
+     */
+    public void resumeSelectRead() {
+        this.key.interestOps(this.key.interestOps() | SelectionKey.OP_READ);
+    }
+
+    /**
+     * 暂停选择回写
+     */
+    public void suspendSelectWrite() {
+        this.key.interestOps(this.key.interestOps() & ~SelectionKey.OP_WRITE);
+    }
+
+    /**
+     * 继续选择回写
+     */
+    public void resumeSelectWrite() {
+        this.key.interestOps(this.key.interestOps() | SelectionKey.OP_WRITE);
     }
 
     /**
@@ -70,6 +100,7 @@ public class Context {
 
     /**
      * 设置服务器支持者
+     * 
      * @param serverSupporter 服务器支持者
      */
     public void setServerSupporter(ServerSupporter serverSupporter) {
