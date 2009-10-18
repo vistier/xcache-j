@@ -9,7 +9,6 @@ import org.wg.xserver.command.DefaultCommandFactory;
 import org.wg.xserver.config.ServerConfig;
 import org.wg.xserver.context.ServerSupporter;
 
-
 /**
  * @author enychen Oct 12, 2009
  */
@@ -30,7 +29,7 @@ public class XserverTest {
         serverSupporter.setServerConfig(serverConfig);
         serverSupporter.setMessageHandler(commandMessageHandler);
         serverSupporter.setExecutor(executor);
-        
+
         Xserver xserver = new Xserver(serverSupporter);
         xserver.start();
     }

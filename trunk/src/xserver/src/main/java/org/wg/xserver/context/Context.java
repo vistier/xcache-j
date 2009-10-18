@@ -104,7 +104,6 @@ public class Context {
 
     /**
      * 设置服务器支持者
-     * 
      * @param serverSupporter 服务器支持者
      */
     public void setServerSupporter(ServerSupporter serverSupporter) {
