@@ -9,15 +9,19 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.wg.xserver.context.Context;
 import org.wg.xserver.context.ServerSupporter;
-
 
 /**
  * Socket处理器
  * @author enychen Sep 6, 2009
  */
 public class SocketHandler {
+
+    /** log */
+    private static final Log           log                    = LogFactory.getLog(SocketHandler.class);
 
     /** 服务器支持者 */
     private ServerSupporter            serverSupporter;
@@ -33,6 +37,9 @@ public class SocketHandler {
 
     /** 上下文关联的socket读取器Map */
     private Map<Context, SocketReader> contextSocketReaderMap = new ConcurrentHashMap<Context, SocketReader>();
+
+    /** 上下文关联的socket回写器Map */
+    private Map<Context, SocketWriter> contextSocketWriterMap = new ConcurrentHashMap<Context, SocketWriter>();
 
     /**
      * 创建Socket处理器
@@ -67,8 +74,7 @@ public class SocketHandler {
 
             this.selector.wakeup();
         } catch (Exception e) {
-            // TODO log
-            e.printStackTrace();
+            log.error("绑定socket通道异常！", e);
         }
     }
 
@@ -89,9 +95,11 @@ public class SocketHandler {
 
                 SocketReader socketReader = new SocketReader(context);
                 this.contextSocketReaderMap.put(context, socketReader);
+                
+                SocketWriter socketWriter = new SocketWriter(context);
+                this.contextSocketWriterMap.put(context, socketWriter);
             } catch (Exception e) {
-                // TODO log
-                e.printStackTrace();
+                log.error("socket处理前准备异常！", e);
             }
         }
     }
@@ -130,7 +138,10 @@ public class SocketHandler {
      * @param context 上下文
      */
     protected void write(Context context) {
+        context.suspendSelectWrite();
 
+        SocketWriter socketWriter = this.contextSocketWriterMap.get(context);
+        this.serverSupporter.getExecutor().execute(socketWriter);
     }
 
     /**
@@ -144,8 +155,9 @@ public class SocketHandler {
          * @see java.lang.Runnable#run()
          */
         public void run() {
-            try {
-                while (serverSupporter.isRunning()) {
+
+            while (serverSupporter.isRunning()) {
+                try {
                     selector.select(1000);
 
                     prepare();
@@ -155,10 +167,9 @@ public class SocketHandler {
                     handle(keys);
 
                     keys.clear();
+                } catch (Exception e) {
+                    log.error("socket处理器异常！", e);
                 }
-            } catch (Exception e) {
-                // TODO log
-                e.printStackTrace();
             }
         }
     }

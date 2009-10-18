@@ -1,11 +1,11 @@
 package org.wg.xserver;
 
-import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.wg.xserver.context.Context;
-
 
 /**
  * socket读取器
@@ -13,17 +13,20 @@ import org.wg.xserver.context.Context;
  */
 public class SocketReader implements Runnable {
 
+    /** log */
+    private static final Log log = LogFactory.getLog(SocketReader.class);
+
     /** 上下文 */
-    private Context        context;
+    private Context          context;
 
     /**  */
-    private SocketChannel  socketChannel;
+    private SocketChannel    socketChannel;
 
     /** 消息处理器 */
-    private MessageHandler messageHandler;
+    private MessageHandler   messageHandler;
 
     /** 缓冲区大小 */
-    private int            bufferSize;
+    private int              bufferSize;
 
     /**
      * 创建socket读取器
@@ -50,13 +53,11 @@ public class SocketReader implements Runnable {
 
                 message.clear();
             }
-        } catch (IOException e) {
-            // TODO log
-            e.printStackTrace();
+        } catch (Exception e) {
+            log.error("socket读取异常！", e);
         } finally {
             context.resumeSelectRead();
-            //context.getKey().selector().wakeup();
         }
-
     }
+
 }
