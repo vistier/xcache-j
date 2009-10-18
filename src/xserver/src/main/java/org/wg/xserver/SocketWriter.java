@@ -29,7 +29,6 @@ public class SocketWriter implements Runnable {
      * @see java.lang.Runnable#run()
      */
     public void run() {
-        
 
     }
 

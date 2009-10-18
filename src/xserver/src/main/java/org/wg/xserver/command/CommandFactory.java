@@ -12,5 +12,5 @@ public interface CommandFactory {
      * @return 命令
      */
     Command getCommand(CommandMessage commandMessage);
-    
+
 }

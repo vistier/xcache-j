@@ -21,14 +21,14 @@ public class CommandMessageHandler implements MessageHandler {
      */
     public void handle(ByteBuffer message, Context context) {
         try {
-            //Thread.sleep(100);
-            //context.send(message);
+            // Thread.sleep(100);
+            // context.send(message);
             context.getSocketChannel().write(message);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         } finally {
-            //context.resumeSelectWrite();
+            // context.resumeSelectWrite();
         }
     }
 
