@@ -1,7 +1,7 @@
-package com.wg.xcache.out;
+package org.wg.xcache.out;
 
-import com.wg.xcache.Element;
-import com.wg.xcache.store.Store;
+import org.wg.xcache.Element;
+import org.wg.xcache.store.Store;
 
 /**
  * 退出策略

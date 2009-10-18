@@ -1,8 +1,8 @@
-package com.wg.xcache.store;
+package org.wg.xcache.store;
 
 import java.util.Collection;
 
-import com.wg.xcache.Element;
+import org.wg.xcache.Element;
 
 /**
  * 存储器

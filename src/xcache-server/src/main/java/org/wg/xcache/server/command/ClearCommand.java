@@ -1,6 +1,6 @@
-package com.wg.xcache.server.command;
+package org.wg.xcache.server.command;
 
-import com.wg.xcache.server.context.Context;
+import org.wg.xcache.server.context.Context;
 
 /**
  * 清除缓存命令
@@ -10,7 +10,7 @@ public class ClearCommand implements Command {
 
     /*
      * (non-Javadoc)
-     * @see com.wg.xcache.server.command.Command#execute(com.wg.xcache.server.context.Context)
+     * @see org.wg.xcache.server.command.Command#execute(org.wg.xcache.server.context.Context)
      */
     public void execute(Context context) {
         // TODO Auto-generated method stub

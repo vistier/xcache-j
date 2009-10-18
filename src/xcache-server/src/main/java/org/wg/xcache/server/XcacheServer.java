@@ -1,4 +1,4 @@
-package com.wg.xcache.server;
+package org.wg.xcache.server;
 
 /**
  * Xcache服务器

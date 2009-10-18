@@ -1,6 +1,6 @@
-package com.wg.xcache.server.command;
+package org.wg.xcache.server.command;
 
-import com.wg.xcache.server.context.Context;
+import org.wg.xcache.server.context.Context;
 
 /**
  * 命令

@@ -1,4 +1,4 @@
-package com.wg.xcache.server.event;
+package org.wg.xcache.server.event;
 
 /**
  * Xcache Server事件分发器

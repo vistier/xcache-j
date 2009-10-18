@@ -1,9 +1,9 @@
-package com.wg.xcache.task;
+package org.wg.xcache.task;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.wg.xcache.Cache;
+import org.wg.xcache.Cache;
 
 /**
  * 删除过期缓存元素任务
@@ -27,7 +27,7 @@ public class DeleteExpireElementTask extends AbstractTask {
 
     /*
      * (non-Javadoc)
-     * @see com.wg.xcache.task.AbstractTask#getName()
+     * @see org.wg.xcache.task.AbstractTask#getName()
      */
     @Override
     public String getName() {
@@ -36,7 +36,7 @@ public class DeleteExpireElementTask extends AbstractTask {
 
     /*
      * (non-Javadoc)
-     * @see com.wg.xcache.task.AbstractTask#doRun()
+     * @see org.wg.xcache.task.AbstractTask#doRun()
      */
     @Override
     protected void doRun() {

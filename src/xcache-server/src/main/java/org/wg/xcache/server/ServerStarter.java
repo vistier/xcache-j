@@ -1,4 +1,4 @@
-package com.wg.xcache.server;
+package org.wg.xcache.server;
 
 /**
  * 服务器启动

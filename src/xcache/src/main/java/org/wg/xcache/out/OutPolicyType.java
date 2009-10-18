@@ -1,4 +1,4 @@
-package com.wg.xcache.out;
+package org.wg.xcache.out;
 
 /**
  * 退出策略类型

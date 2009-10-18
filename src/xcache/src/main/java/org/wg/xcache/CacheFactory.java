@@ -1,11 +1,11 @@
-package com.wg.xcache;
+package org.wg.xcache;
 
 import java.util.Timer;
 
-import com.wg.xcache.config.CacheConfig;
-import com.wg.xcache.task.AbstractTask;
-import com.wg.xcache.task.DeleteExpireElementTask;
-import com.wg.xcache.task.LogCacheStatTask;
+import org.wg.xcache.config.CacheConfig;
+import org.wg.xcache.task.AbstractTask;
+import org.wg.xcache.task.DeleteExpireElementTask;
+import org.wg.xcache.task.LogCacheStatTask;
 
 /**
  * 缓存工厂

@@ -1,4 +1,4 @@
-package com.wg.xcache.server.context;
+package org.wg.xcache.server.context;
 
 /**
  * 获取缓存响应
@@ -11,7 +11,7 @@ public class GetResponse extends Response {
 
     /*
      * (non-Javadoc)
-     * @see com.wg.xcache.server.context.Response#encode()
+     * @see org.wg.xcache.server.context.Response#encode()
      */
     @Override
     public byte[] encode() {

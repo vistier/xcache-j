@@ -1,11 +1,11 @@
-package com.wg.xcache.store;
+package org.wg.xcache.store;
 
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.wg.xcache.Element;
-import com.wg.xcache.util.XcacheConst;
+import org.wg.xcache.Element;
+import org.wg.xcache.util.XcacheConst;
 
 /**
  * 内存
@@ -21,7 +21,7 @@ public class MemoryStore implements Store {
 
     /*
      * (non-Javadoc)
-     * @see com.wg.xcache.store.Store#put(com.wg.xcache.Element)
+     * @see org.wg.xcache.store.Store#put(org.wg.xcache.Element)
      */
     public void put(Element element) {
         this.map.put(element.getKey(), element);
@@ -29,7 +29,7 @@ public class MemoryStore implements Store {
 
     /*
      * (non-Javadoc)
-     * @see com.wg.xcache.store.Store#delete(java.lang.Object)
+     * @see org.wg.xcache.store.Store#delete(java.lang.Object)
      */
     public void delete(Object key) {
         this.map.remove(key);
@@ -37,7 +37,7 @@ public class MemoryStore implements Store {
 
     /*
      * (non-Javadoc)
-     * @see com.wg.xcache.store.Store#get(java.lang.Object)
+     * @see org.wg.xcache.store.Store#get(java.lang.Object)
      */
     public Element get(Object key) {
         return this.map.get(key);
@@ -45,7 +45,7 @@ public class MemoryStore implements Store {
 
     /*
      * (non-Javadoc)
-     * @see com.wg.xcache.store.Store#getAll()
+     * @see org.wg.xcache.store.Store#getAll()
      */
     public Collection<Element> getAll() {
         return this.map.values();
@@ -53,7 +53,7 @@ public class MemoryStore implements Store {
 
     /*
      * (non-Javadoc)
-     * @see com.wg.xcache.store.Store#clear()
+     * @see org.wg.xcache.store.Store#clear()
      */
     public void clear() {
         this.map.clear();
@@ -61,7 +61,7 @@ public class MemoryStore implements Store {
 
     /*
      * (non-Javadoc)
-     * @see com.wg.xcache.store.Store#getAmount()
+     * @see org.wg.xcache.store.Store#getAmount()
      */
     public int getAmount() {
         return this.map.size();

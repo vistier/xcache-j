@@ -1,12 +1,12 @@
-package com.wg.xcache.config;
+package org.wg.xcache.config;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.MessageFormat;
 import java.util.Properties;
 
-import com.wg.xcache.XcacheException;
-import com.wg.xcache.util.XcacheConst;
+import org.wg.xcache.XcacheException;
+import org.wg.xcache.util.XcacheConst;
 
 /**
  * properties文件配置解析器
@@ -40,7 +40,7 @@ public class PropConfigParser implements ConfigParser {
 
     /*
      * (non-Javadoc)
-     * @see com.wg.xcache.config.ConfigParser#parse()
+     * @see org.wg.xcache.config.ConfigParser#parse()
      */
     public Config parse() {
         Config config = new Config();

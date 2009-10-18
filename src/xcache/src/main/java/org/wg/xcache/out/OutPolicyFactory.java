@@ -1,4 +1,4 @@
-package com.wg.xcache.out;
+package org.wg.xcache.out;
 
 import java.util.HashMap;
 import java.util.Map;

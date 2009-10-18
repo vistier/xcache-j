@@ -1,6 +1,6 @@
 package org.wg.xcache.out;
 
-import com.wg.xcache.Element;
+import org.wg.xcache.Element;
 
 import junit.framework.TestCase;
 

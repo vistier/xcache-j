@@ -1,4 +1,4 @@
-package com.wg.xcache;
+package org.wg.xcache;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

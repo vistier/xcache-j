@@ -1,4 +1,4 @@
-package com.wg.xcache.config;
+package org.wg.xcache.config;
 
 /**
  * 配置

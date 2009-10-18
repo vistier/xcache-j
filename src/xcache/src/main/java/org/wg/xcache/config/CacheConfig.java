@@ -1,7 +1,7 @@
-package com.wg.xcache.config;
+package org.wg.xcache.config;
 
-import com.wg.xcache.out.OutPolicyType;
-import com.wg.xcache.store.StoreMedia;
+import org.wg.xcache.out.OutPolicyType;
+import org.wg.xcache.store.StoreMedia;
 
 /**
  * 缓存配置

@@ -1,4 +1,4 @@
-package com.wg.xcache.server.socket;
+package org.wg.xcache.server.socket;
 
 /**
  * Socket处理器

@@ -1,4 +1,4 @@
-package com.wg.xcache.server.config;
+package org.wg.xcache.server.config;
 
 /**
  * properties文件配置解析器
@@ -8,7 +8,7 @@ public class PropConfigParser implements ConfigParser {
 
     /*
      * (non-Javadoc)
-     * @see com.wg.xcache.server.config.ConfigParser#parse()
+     * @see org.wg.xcache.server.config.ConfigParser#parse()
      */
     public ServerConfig parse() {
         // TODO Auto-generated method stub

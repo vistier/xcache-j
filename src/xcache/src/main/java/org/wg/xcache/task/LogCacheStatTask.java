@@ -1,11 +1,11 @@
-package com.wg.xcache.task;
+package org.wg.xcache.task;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.wg.xcache.Cache;
-import com.wg.xcache.CacheStat;
-import com.wg.xcache.util.XcacheConst;
+import org.wg.xcache.Cache;
+import org.wg.xcache.CacheStat;
+import org.wg.xcache.util.XcacheConst;
 
 /**
  * 记录缓存统计信息任务
@@ -29,7 +29,7 @@ public class LogCacheStatTask extends AbstractTask {
 
     /*
      * (non-Javadoc)
-     * @see com.wg.xcache.task.AbstractTask#getName()
+     * @see org.wg.xcache.task.AbstractTask#getName()
      */
     @Override
     public String getName() {
@@ -38,7 +38,7 @@ public class LogCacheStatTask extends AbstractTask {
 
     /*
      * (non-Javadoc)
-     * @see com.wg.xcache.task.AbstractTask#doRun()
+     * @see org.wg.xcache.task.AbstractTask#doRun()
      */
     @Override
     protected void doRun() {

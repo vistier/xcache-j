@@ -1,4 +1,4 @@
-package com.wg.xcache;
+package org.wg.xcache;
 
 import java.text.MessageFormat;
 import java.util.Map;
@@ -7,9 +7,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.wg.xcache.config.CacheConfig;
-import com.wg.xcache.config.ConfigFactory;
-import com.wg.xcache.util.XcacheConst;
+import org.wg.xcache.config.CacheConfig;
+import org.wg.xcache.config.ConfigFactory;
+import org.wg.xcache.util.XcacheConst;
 
 /**
  * Xcache缓存管理器
