@@ -94,8 +94,7 @@ public class Xserver {
                     SocketChannel socketChannel = serverSocketChannel.accept();
 
                     if (log.isInfoEnabled()) {
-                        log.info("接收到来自" + socketChannel.socket().getRemoteSocketAddress()
-                                        + "的连接。");
+                        log.info("接收到来自" + socketChannel.socket().getRemoteSocketAddress() + "的连接。");
                     }
 
                     // 对socket负载均衡处理
