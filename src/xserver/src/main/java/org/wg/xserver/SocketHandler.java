@@ -41,6 +41,9 @@ public class SocketHandler {
     /** 上下文关联的socket回写器Map */
     private Map<Context, SocketWriter> contextSocketWriterMap = new ConcurrentHashMap<Context, SocketWriter>();
 
+    /** 绑定锁 */
+    private Object                     bindLock               = new Object();
+
     /**
      * 创建Socket处理器
      * @param serverSupporter 服务器支持者
@@ -95,7 +98,7 @@ public class SocketHandler {
 
                 SocketReader socketReader = new SocketReader(context);
                 this.contextSocketReaderMap.put(context, socketReader);
-                
+
                 SocketWriter socketWriter = new SocketWriter(context);
                 this.contextSocketWriterMap.put(context, socketWriter);
             } catch (Exception e) {
