@@ -24,6 +24,9 @@ public class Context {
     /** 已经收到消息的队列 */
     private Queue<ByteBuffer> receivedMessageQueue = new ConcurrentLinkedQueue<ByteBuffer>();
 
+    /** 已经收到消息的缓冲 */
+    private ByteBuffer        receivedMessageBuffer;
+
     /** 将要发送消息的队列 */
     private Queue<ByteBuffer> sendingMessageQueue  = new ConcurrentLinkedQueue<ByteBuffer>();
 
@@ -38,7 +41,7 @@ public class Context {
      * @param message 消息
      */
     public void receive(ByteBuffer message) {
-        this.receivedMessageQueue.add(message);
+        //this.receivedMessageQueue.add(message);
     }
 
     /**
