@@ -41,9 +41,6 @@ public class SocketHandler {
     /** 上下文关联的socket回写器Map */
     private Map<Context, SocketWriter> contextSocketWriterMap = new ConcurrentHashMap<Context, SocketWriter>();
 
-    /** 绑定锁 */
-    private Object                     bindLock               = new Object();
-
     /**
      * 创建Socket处理器
      * @param serverSupporter 服务器支持者
