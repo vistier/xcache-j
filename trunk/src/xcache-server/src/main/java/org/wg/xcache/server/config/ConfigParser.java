@@ -1,4 +1,4 @@
-package com.wg.xcache.server.config;
+package org.wg.xcache.server.config;
 
 /**
  * 配置解析器

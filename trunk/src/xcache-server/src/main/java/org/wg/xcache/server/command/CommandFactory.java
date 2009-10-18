@@ -1,4 +1,4 @@
-package com.wg.xcache.server.command;
+package org.wg.xcache.server.command;
 
 /**
  * 命令工厂

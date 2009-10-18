@@ -3,7 +3,7 @@ package org.wg.xcache.out;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.wg.xcache.Element;
+import org.wg.xcache.Element;
 
 import junit.framework.TestCase;
 

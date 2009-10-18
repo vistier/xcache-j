@@ -1,4 +1,4 @@
-package com.wg.xcache.util;
+package org.wg.xcache.util;
 
 /**
  * 常量类

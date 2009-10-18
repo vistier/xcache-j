@@ -1,4 +1,4 @@
-package com.wg.xcache;
+package org.wg.xcache;
 
 /**
  * 缓存元素

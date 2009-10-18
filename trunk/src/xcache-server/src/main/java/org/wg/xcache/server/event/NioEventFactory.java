@@ -1,4 +1,4 @@
-package com.wg.xcache.server.event;
+package org.wg.xcache.server.event;
 
 /**
  * NIO事件工厂

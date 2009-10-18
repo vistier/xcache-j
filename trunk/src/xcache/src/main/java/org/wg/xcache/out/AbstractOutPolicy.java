@@ -1,12 +1,12 @@
-package com.wg.xcache.out;
+package org.wg.xcache.out;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Random;
 
-import com.wg.xcache.Element;
-import com.wg.xcache.store.Store;
+import org.wg.xcache.Element;
+import org.wg.xcache.store.Store;
 
 /**
  * 抽象退出策略
@@ -19,7 +19,7 @@ public abstract class AbstractOutPolicy implements OutPolicy {
 
     /*
      * (non-Javadoc)
-     * @see com.wg.xcache.out.OutPolicy#vote(com.wg.xcache.store.Store)
+     * @see org.wg.xcache.out.OutPolicy#vote(org.wg.xcache.store.Store)
      */
     public Element vote(Store store) {
         Element[] candidates = this.getCandidates(store.getAll());

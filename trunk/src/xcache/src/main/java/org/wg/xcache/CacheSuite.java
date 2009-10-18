@@ -1,6 +1,6 @@
-package com.wg.xcache;
+package org.wg.xcache;
 
-import com.wg.xcache.task.AbstractTask;
+import org.wg.xcache.task.AbstractTask;
 
 /**
  * 一套缓存

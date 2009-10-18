@@ -1,4 +1,4 @@
-package com.wg.xcache.server.context;
+package org.wg.xcache.server.context;
 
 /**
  * 响应头

@@ -1,4 +1,4 @@
-package com.wg.xcache.task;
+package org.wg.xcache.task;
 
 import java.util.TimerTask;
 

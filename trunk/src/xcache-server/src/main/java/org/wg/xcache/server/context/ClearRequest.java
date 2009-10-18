@@ -1,4 +1,4 @@
-package com.wg.xcache.server.context;
+package org.wg.xcache.server.context;
 
 /**
  * 清除缓存请求
@@ -8,7 +8,7 @@ public class ClearRequest extends Request {
 
     /*
      * (non-Javadoc)
-     * @see com.wg.xcache.server.context.Request#decode(byte[])
+     * @see org.wg.xcache.server.context.Request#decode(byte[])
      */
     @Override
     public void decode(byte[] bytes) {

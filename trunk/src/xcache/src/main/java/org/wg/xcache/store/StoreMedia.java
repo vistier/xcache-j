@@ -1,4 +1,4 @@
-package com.wg.xcache.store;
+package org.wg.xcache.store;
 
 /**
  * 存储媒介

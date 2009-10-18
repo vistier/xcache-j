@@ -1,15 +1,15 @@
-package com.wg.xcache;
+package org.wg.xcache;
 
 import java.util.Collection;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.wg.xcache.config.CacheConfig;
-import com.wg.xcache.out.OutPolicy;
-import com.wg.xcache.out.OutPolicyFactory;
-import com.wg.xcache.store.Store;
-import com.wg.xcache.store.StoreFactory;
+import org.wg.xcache.config.CacheConfig;
+import org.wg.xcache.out.OutPolicy;
+import org.wg.xcache.out.OutPolicyFactory;
+import org.wg.xcache.store.Store;
+import org.wg.xcache.store.StoreFactory;
 
 /**
  * Xcache缓存实现
@@ -46,7 +46,7 @@ public final class Xcache implements Cache {
 
     /*
      * (non-Javadoc)
-     * @see com.wg.xcache.Cache#getName()
+     * @see org.wg.xcache.Cache#getName()
      */
     public String getName() {
         return this.cacheConfig.getName();
@@ -54,7 +54,7 @@ public final class Xcache implements Cache {
 
     /*
      * (non-Javadoc)
-     * @see com.wg.xcache.Cache#put(com.wg.xcache.Element)
+     * @see org.wg.xcache.Cache#put(org.wg.xcache.Element)
      */
     public void put(Element element) {
         this.cacheStat.setLastPutTime(System.currentTimeMillis());
@@ -105,7 +105,7 @@ public final class Xcache implements Cache {
 
     /*
      * (non-Javadoc)
-     * @see com.wg.xcache.Cache#delete(java.lang.Object)
+     * @see org.wg.xcache.Cache#delete(java.lang.Object)
      */
     public void delete(Object key) {
         this.cacheStat.setLastDeleteTime(System.currentTimeMillis());
@@ -116,7 +116,7 @@ public final class Xcache implements Cache {
 
     /*
      * (non-Javadoc)
-     * @see com.wg.xcache.Cache#get(java.lang.Object)
+     * @see org.wg.xcache.Cache#get(java.lang.Object)
      */
     public Element get(Object key) {
         this.cacheStat.setLastAccessTime(System.currentTimeMillis());
@@ -138,7 +138,7 @@ public final class Xcache implements Cache {
 
     /*
      * (non-Javadoc)
-     * @see com.wg.xcache.Cache#clear()
+     * @see org.wg.xcache.Cache#clear()
      */
     public void clear() {
         this.cacheStat.setLastClearTime(System.currentTimeMillis());
@@ -149,7 +149,7 @@ public final class Xcache implements Cache {
 
     /*
      * (non-Javadoc)
-     * @see com.wg.xcache.Cache#getCacheStat()
+     * @see org.wg.xcache.Cache#getCacheStat()
      */
     public CacheStat getCacheStat() {
         this.cacheStat.setLastGetCacheStatTime(System.currentTimeMillis());
@@ -162,7 +162,7 @@ public final class Xcache implements Cache {
 
     /*
      * (non-Javadoc)
-     * @see com.wg.xcache.Cache#deleteExpireElement()
+     * @see org.wg.xcache.Cache#deleteExpireElement()
      */
     public int deleteExpireElement() {
         this.cacheStat.setLastDeleteExpireElementTime(System.currentTimeMillis());

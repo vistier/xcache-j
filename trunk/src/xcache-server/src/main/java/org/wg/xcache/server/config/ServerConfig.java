@@ -1,4 +1,4 @@
-package com.wg.xcache.server.config;
+package org.wg.xcache.server.config;
 
 /**
  * 服务器配置
