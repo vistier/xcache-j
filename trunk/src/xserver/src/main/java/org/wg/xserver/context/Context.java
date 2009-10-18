@@ -27,9 +27,14 @@ public class Context {
     /** 将要发送消息的队列 */
     private Queue<ByteBuffer> sendingMessageQueue  = new ConcurrentLinkedQueue<ByteBuffer>();
 
+    /** 是否正在回写 */
+    private boolean           writing;
+
+    /** 回写锁 */
+    private Object            writeLock            = new Object();
+
     /**
      * 接收消息
-     * 
      * @param message 消息
      */
     public void receive(ByteBuffer message) {
@@ -38,7 +43,6 @@ public class Context {
 
     /**
      * 发送消息
-     * 
      * @param message 消息
      */
     public void send(ByteBuffer message) {
