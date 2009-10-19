@@ -62,7 +62,7 @@ public class Context {
             return null;
         }
 
-        // 从缓冲区获取定长消息
+        // 从缓冲区获取length消息
         this.receivedMessageBuffer.rewind();
         this.receivedMessageBuffer.limit(length);
 
@@ -70,7 +70,7 @@ public class Context {
         message.put(this.receivedMessageBuffer);
         message.flip();
 
-        // 截掉缓冲区定长消息
+        // 截掉缓冲区length消息
         ByteBuffer temp = this.receivedMessageBuffer;
         temp.limit(limit);
 

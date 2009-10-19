@@ -5,11 +5,12 @@ import java.util.concurrent.Executors;
 
 import org.wg.xserver.Xserver;
 import org.wg.xserver.command.CommandMessageHandler;
-import org.wg.xserver.command.DefaultCommandFactory;
+import org.wg.xserver.command.TestCommandFactory;
 import org.wg.xserver.config.ServerConfig;
 import org.wg.xserver.context.ServerSupporter;
 
 /**
+ * xserver测试
  * @author enychen Oct 12, 2009
  */
 public class XserverTest {
@@ -19,7 +20,7 @@ public class XserverTest {
         serverConfig.setPort(1234);
         serverConfig.setSocketHandlerCount(2);
 
-        DefaultCommandFactory defaultCommandFactory = new DefaultCommandFactory();
+        TestCommandFactory defaultCommandFactory = new TestCommandFactory();
         CommandMessageHandler commandMessageHandler = new CommandMessageHandler();
         commandMessageHandler.setCommandFactory(defaultCommandFactory);
 

@@ -2,27 +2,50 @@ package org.wg.xserver.command;
 
 import java.nio.ByteBuffer;
 
+import org.wg.xserver.Message;
+
 /**
  * 命令消息
  * @author enychen Oct 11, 2009
  */
-public class CommandMessage {
+public class CommandMessage extends Message {
+
+    /** 消息长度 */
+    protected int length;
 
     /** 消息ID */
-    private int        id;
+    protected int id;
 
     /** 命令ID */
-    private int        commandId;
+    protected int commandId;
 
-    /** 消息 */
-    private ByteBuffer message;
+    /*
+     * (non-Javadoc)
+     * @see org.wg.xserver.Message#encode()
+     */
+    @Override
+    public ByteBuffer encode() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.wg.xserver.Message#decode(java.nio.ByteBuffer)
+     */
+    @Override
+    public void decode(ByteBuffer message) {
+        this.message = message;
+
+        // TODO 解码
+    }
 
     /**
-     * 创建命令消息
-     * @param message 消息
+     * 获取消息长度
+     * @return 消息长度
      */
-    public CommandMessage(ByteBuffer message) {
-        this.message = message;
+    public int getLength() {
+        return length;
     }
 
     /**
@@ -42,11 +65,14 @@ public class CommandMessage {
     }
 
     /**
-     * 获取消息
-     * @return 消息
+     * 拷贝命令消息
+     * @param commandMessage 命令消息
      */
-    public ByteBuffer getMessage() {
-        return message;
+    public void copy(CommandMessage commandMessage) {
+        this.length = commandMessage.length;
+        this.id = commandMessage.id;
+        this.commandId = commandMessage.commandId;
+        this.message = commandMessage.message;
     }
 
 }
