@@ -1,7 +1,5 @@
 package org.wg.xserver;
 
-import java.nio.ByteBuffer;
-
 import org.wg.xserver.context.Context;
 
 /**
@@ -12,9 +10,8 @@ public interface MessageHandler {
 
     /**
      * 处理消息
-     * @param message 消息
      * @param context 上下文
      */
-    void handle(ByteBuffer message, Context context);
+    void handle(Context context);
 
 }
