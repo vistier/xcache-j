@@ -21,34 +21,71 @@ public class Context {
     /** 选择键 */
     private SelectionKey      key;
 
-    /** 已经收到消息的队列 */
-    private Queue<ByteBuffer> receivedMessageQueue = new ConcurrentLinkedQueue<ByteBuffer>();
-
-    /** 已经收到消息的缓冲 */
+    /** 已经收到消息的缓冲区 */
     private ByteBuffer        receivedMessageBuffer;
 
     /** 将要发送消息的队列 */
-    private Queue<ByteBuffer> sendingMessageQueue  = new ConcurrentLinkedQueue<ByteBuffer>();
+    private Queue<ByteBuffer> sendingMessageQueue = new ConcurrentLinkedQueue<ByteBuffer>();
 
     /** 是否正在回写 */
     private boolean           writing;
 
     /** 回写锁 */
-    private Object            writeLock            = new Object();
+    private Object            writeLock           = new Object();
 
     /**
      * 接收消息
      * @param message 消息
      */
     public void receive(ByteBuffer message) {
-        //this.receivedMessageQueue.add(message);
+        if (this.receivedMessageBuffer == null) {
+            this.receivedMessageBuffer = ByteBuffer.allocate(message.limit());
+            this.receivedMessageBuffer.put(message);
+        } else {
+            ByteBuffer temp = this.receivedMessageBuffer;
+            this.receivedMessageBuffer = ByteBuffer.allocate(temp.limit() + message.limit());
+            this.receivedMessageBuffer.put(temp).put(message);
+        }
+
+        this.receivedMessageBuffer.flip();
     }
 
     /**
-     * 发送消息
+     * 根据长度获取消息
+     * @param length 长度
+     * @return 消息
+     */
+    public ByteBuffer getMessageByLength(int length) {
+        int limit = this.receivedMessageBuffer.limit();
+
+        if (length > limit) {
+            return null;
+        }
+
+        // 从缓冲区获取定长消息
+        this.receivedMessageBuffer.rewind();
+        this.receivedMessageBuffer.limit(length);
+
+        ByteBuffer message = ByteBuffer.allocate(length);
+        message.put(this.receivedMessageBuffer);
+        message.flip();
+
+        // 截掉缓冲区定长消息
+        ByteBuffer temp = this.receivedMessageBuffer;
+        temp.limit(limit);
+
+        this.receivedMessageBuffer = ByteBuffer.allocate(limit - length);
+        this.receivedMessageBuffer.put(temp);
+        this.receivedMessageBuffer.flip();
+
+        return message;
+    }
+
+    /**
+     * 回写消息
      * @param message 消息
      */
-    public void send(ByteBuffer message) {
+    public void write(ByteBuffer message) {
         this.sendingMessageQueue.add(message);
     }
 
@@ -127,6 +164,22 @@ public class Context {
      */
     public void setKey(SelectionKey key) {
         this.key = key;
+    }
+
+    /**
+     * 获取已经收到消息的缓冲
+     * @return 已经收到消息的缓冲
+     */
+    public ByteBuffer getReceivedMessageBuffer() {
+        return receivedMessageBuffer;
+    }
+
+    /**
+     * 设置已经收到消息的缓冲
+     * @param receivedMessageBuffer 已经收到消息的缓冲
+     */
+    public void setReceivedMessageBuffer(ByteBuffer receivedMessageBuffer) {
+        this.receivedMessageBuffer = receivedMessageBuffer;
     }
 
 }
