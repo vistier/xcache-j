@@ -44,11 +44,13 @@ public class SocketReader implements Runnable {
      */
     public void run() {
         try {
-            ByteBuffer message = ByteBuffer.allocateDirect(this.bufferSize);
+            ByteBuffer message = ByteBuffer.allocate(this.bufferSize);
 
             while (this.socketChannel.read(message) > 0) {
                 message.flip();
 
+                context.receive(message);
+                
                 this.messageHandler.handle(message, context);
 
                 message.clear();

@@ -127,6 +127,7 @@ public class SocketHandler {
      * @param context 上下文
      */
     protected void read(Context context) {
+        // 读取时，要暂停选择读取
         context.suspendSelectRead();
 
         SocketReader socketReader = this.contextSocketReaderMap.get(context);
@@ -138,6 +139,7 @@ public class SocketHandler {
      * @param context 上下文
      */
     protected void write(Context context) {
+        // 回写时，要暂停选择回写
         context.suspendSelectWrite();
 
         SocketWriter socketWriter = this.contextSocketWriterMap.get(context);
