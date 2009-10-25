@@ -10,14 +10,20 @@ import org.wg.xserver.Message;
  */
 public class CommandMessage extends Message {
 
+    /** 消息头长度 */
+    public static final int HEADER_LENGTH = 8;
+
+    /** 消息长度的长度 */
+    public static final int LENGTH_LENGTH = 4;
+
     /** 消息长度 */
-    protected int   length = 8;
+    protected int           length;
 
     /** 消息ID */
-    protected short id;
+    protected short         id;
 
     /** 命令ID */
-    protected short commandId;
+    protected short         commandId;
 
     /*
      * (non-Javadoc)
@@ -25,8 +31,8 @@ public class CommandMessage extends Message {
      */
     @Override
     public ByteBuffer encode() {
-        ByteBuffer message = ByteBuffer.allocate(this.length);
-        message.putInt(this.length);
+        ByteBuffer message = ByteBuffer.allocate(HEADER_LENGTH);
+        message.putInt(HEADER_LENGTH);
         message.putShort(this.id);
         message.putShort(this.commandId);
         message.flip();

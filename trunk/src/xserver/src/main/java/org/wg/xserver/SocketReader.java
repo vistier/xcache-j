@@ -1,5 +1,6 @@
 package org.wg.xserver;
 
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 
@@ -65,8 +66,14 @@ public class SocketReader implements Runnable {
             }
         } catch (Exception e) {
             log.error("socket读取异常！", e);
+
+            // --IO异常，关闭连接
+            if (e instanceof IOException) {
+                this.context.close();
+            }
         } finally {
-            if (readLength >= 0) {
+            // --继续选择读取
+            if (this.context.getSocketChannel().isOpen()) {
                 context.resumeSelectRead();
             }
         }

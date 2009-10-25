@@ -31,8 +31,17 @@ public class TestRequest extends CommandMessage {
      */
     @Override
     public ByteBuffer encode() {
-        // TODO Auto-generated method stub
-        return super.encode();
+        byte[] testBytes = this.test.getBytes();
+        this.length = HEADER_LENGTH + testBytes.length;
+        
+        ByteBuffer message = ByteBuffer.allocate(this.length);
+        message.putInt(this.length);
+        message.putShort(this.id);
+        message.putShort(this.commandId);
+        message.put(testBytes);
+        message.flip();
+        
+        return message;
     }
 
     /*
@@ -41,8 +50,9 @@ public class TestRequest extends CommandMessage {
      */
     @Override
     public void decode(ByteBuffer message) {
-        // TODO Auto-generated method stub
-        super.decode(message);
+        byte[] testBytes = new byte[message.remaining()];
+        message.get(testBytes);
+        this.test = new String(testBytes);
     }
 
     /**

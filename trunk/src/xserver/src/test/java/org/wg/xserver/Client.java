@@ -3,7 +3,7 @@ package org.wg.xserver;
 import java.net.InetSocketAddress;
 import java.nio.channels.SocketChannel;
 
-import org.wg.xserver.command.CommandMessage;
+import org.wg.xserver.command.TestRequest;
 
 /**
  * 测试客户端
@@ -17,13 +17,14 @@ public class Client {
         socketChannel.connect(address);
         socketChannel.configureBlocking(false);
 
-        for (int i = 0; i < 10; i++) {
-            // ByteBuffer bb = ByteBuffer.wrap(("test" + i + "\n").getBytes());
-
-            CommandMessage test = new CommandMessage();
+        for (int i = 0; i < 100000000; i++) {
+            TestRequest test = new TestRequest();
             test.setId((short) (100 + i));
             test.setCommandId((short) (1000 + i));
+            test.setTest("123哈哈！abc第一次测试！");
             socketChannel.write(test.encode());
+            
+            Thread.sleep(100);
         }
 
         socketChannel.close();

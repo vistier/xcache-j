@@ -17,9 +17,10 @@ public class TestCommand implements Command {
      */
     public void execute(CommandMessage commandMessage, Context context) {
         TestRequest testRequest = new TestRequest(commandMessage);
-        String out = (new Date()) + "测试命令，length=" + testRequest.getLength() + ", id=" + testRequest.getId()
-                + ", commandId=" + testRequest.getCommandId() + ", test=" + testRequest.getTest()
-                + ".";
+        testRequest.decode(commandMessage.getMessage());
+        
+        String out = context.getSocketChannel().socket().getRemoteSocketAddress().toString() + "测试命令，length=" + testRequest.getLength() + ", id=" + testRequest.getId()
+                + ", commandId=" + testRequest.getCommandId() + ", test=" + testRequest.getTest();
         System.out.println(out);
     }
 }
