@@ -25,7 +25,7 @@ public class CommandMessageHandler implements MessageHandler {
      */
     public void handle(Context context) {
         try {
-            while (context.getReceivedMessageBuffer().limit() >= 4) {
+            while (context.getReceivedMessageBuffer().limit() >= CommandMessage.LENGTH_LENGTH) {
                 // --获取一个长度为length的消息
                 int length = context.getReceivedMessageBuffer().getInt();
                 ByteBuffer message = context.getMessageByLength(length);
