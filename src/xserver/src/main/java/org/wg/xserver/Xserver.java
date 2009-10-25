@@ -81,8 +81,7 @@ public class Xserver {
             try {
                 // --服务器启动
                 serverSocketChannel = ServerSocketChannel.open();
-                InetSocketAddress address = new InetSocketAddress(serverSupporter.getServerConfig()
-                        .getPort());
+                InetSocketAddress address = new InetSocketAddress(serverSupporter.getServerConfig().getPort());
                 serverSocketChannel.socket().bind(address);
             } catch (Exception e) {
                 log.error("服务器启动异常！", e);
@@ -96,9 +95,8 @@ public class Xserver {
                     SocketChannel socketChannel = serverSocketChannel.accept();
 
                     if (log.isInfoEnabled()) {
-                        log
-                                .info("接收到来自" + socketChannel.socket().getRemoteSocketAddress()
-                                        + "的连接。");
+                        log.info("接收到来自" + socketChannel.socket().getRemoteSocketAddress()
+                                 + "的连接。");
                     }
 
                     // 对socket负载均衡处理
