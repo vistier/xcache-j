@@ -25,11 +25,16 @@ public class CommandMessageHandler implements MessageHandler {
      */
     public void handle(Context context) {
         try {
-            // TODO 读取消息长度
-            int length = context.getReceivedMessageBuffer().getInt();
-            ByteBuffer message = context.getMessageByLength(length);
+            while (context.getReceivedMessageBuffer().limit() >= 4) {
+                // --获取一个长度为length的消息
+                int length = context.getReceivedMessageBuffer().getInt();
+                ByteBuffer message = context.getMessageByLength(length);
 
-            if (message != null) {
+                if (message == null) {
+                    break;
+                }
+
+                // --执行命令
                 CommandMessage commandMessage = new CommandMessage();
                 commandMessage.decode(message);
                 Command command = this.commandFactory.getCommand(commandMessage);

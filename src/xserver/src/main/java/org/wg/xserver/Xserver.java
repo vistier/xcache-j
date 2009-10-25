@@ -1,6 +1,5 @@
 package org.wg.xserver;
 
-import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
@@ -58,6 +57,7 @@ public class Xserver {
      */
     public void start() {
         if (this.acceptor == null) {
+            // --启动接收器线程
             this.acceptor = new Acceptor();
             this.serverSupporter.getExecutor().execute(acceptor);
         }
@@ -79,6 +79,7 @@ public class Xserver {
          */
         public void run() {
             try {
+                // --服务器启动
                 serverSocketChannel = ServerSocketChannel.open();
                 InetSocketAddress address = new InetSocketAddress(serverSupporter.getServerConfig()
                         .getPort());
@@ -91,15 +92,18 @@ public class Xserver {
 
             while (serverSupporter.isRunning()) {
                 try {
+                    // 等待接收连接
                     SocketChannel socketChannel = serverSocketChannel.accept();
 
                     if (log.isInfoEnabled()) {
-                        log.info("接收到来自" + socketChannel.socket().getRemoteSocketAddress() + "的连接。");
+                        log
+                                .info("接收到来自" + socketChannel.socket().getRemoteSocketAddress()
+                                        + "的连接。");
                     }
 
                     // 对socket负载均衡处理
                     socketHandlers[acceptedTimes++ % socketHandlerCount].bind(socketChannel);
-                } catch (IOException e) {
+                } catch (Exception e) {
                     log.error("连接异常！", e);
                 }
             }

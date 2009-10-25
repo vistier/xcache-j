@@ -13,6 +13,12 @@ public class TestRequest extends CommandMessage {
 
     /**
      * 创建测试请求
+     */
+    public TestRequest() {
+    }
+
+    /**
+     * 创建测试请求
      * @param commandMessage 命令消息
      */
     public TestRequest(CommandMessage commandMessage) {
@@ -45,6 +51,14 @@ public class TestRequest extends CommandMessage {
      */
     public String getTest() {
         return test;
+    }
+
+    /**
+     * 设置测试字符
+     * @param test 测试字符
+     */
+    public void setTest(String test) {
+        this.test = test;
     }
 
 }

@@ -20,14 +20,6 @@ public abstract class Message {
     }
 
     /**
-     * 设置消息
-     * @param message 消息
-     */
-    public void setMessage(ByteBuffer message) {
-        this.message = message;
-    }
-
-    /**
      * 编码
      * @return 消息
      */

@@ -1,5 +1,7 @@
 package org.wg.xserver.command;
 
+import java.util.Date;
+
 import org.wg.xserver.context.Context;
 
 /**
@@ -15,7 +17,7 @@ public class TestCommand implements Command {
      */
     public void execute(CommandMessage commandMessage, Context context) {
         TestRequest testRequest = new TestRequest(commandMessage);
-        String out = "测试命令，length=" + testRequest.getLength() + ", id=" + testRequest.getId()
+        String out = (new Date()) + "测试命令，length=" + testRequest.getLength() + ", id=" + testRequest.getId()
                 + ", commandId=" + testRequest.getCommandId() + ", test=" + testRequest.getTest()
                 + ".";
         System.out.println(out);

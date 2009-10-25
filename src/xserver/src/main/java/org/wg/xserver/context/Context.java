@@ -6,6 +6,9 @@ import java.nio.channels.SocketChannel;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import org.wg.xserver.Message;
+import org.wg.xserver.SocketHandler;
+
 /**
  * 上下文
  * @author enychen Oct 11, 2009
@@ -17,6 +20,9 @@ public class Context {
 
     /** 服务器支持者 */
     private ServerSupporter   serverSupporter;
+
+    /** Socket处理器 */
+    private SocketHandler     socketHandler;
 
     /** 选择键 */
     private SelectionKey      key;
@@ -38,6 +44,7 @@ public class Context {
      * @param message 消息
      */
     public void receive(ByteBuffer message) {
+        // --将消息放入缓冲区
         if (this.receivedMessageBuffer == null) {
             this.receivedMessageBuffer = ByteBuffer.allocate(message.limit());
             this.receivedMessageBuffer.put(message);
@@ -56,21 +63,20 @@ public class Context {
      * @return 消息
      */
     public ByteBuffer getMessageByLength(int length) {
-        int limit = this.receivedMessageBuffer.limit();
+        int limit = this.receivedMessageBuffer.rewind().limit();
 
         if (length > limit) {
             return null;
         }
 
-        // 从缓冲区获取length消息
-        this.receivedMessageBuffer.rewind();
+        // --从缓冲区获取length消息
         this.receivedMessageBuffer.limit(length);
 
         ByteBuffer message = ByteBuffer.allocate(length);
         message.put(this.receivedMessageBuffer);
         message.flip();
 
-        // 截掉缓冲区length消息
+        // --截掉缓冲区length消息
         ByteBuffer temp = this.receivedMessageBuffer;
         temp.limit(limit);
 
@@ -87,6 +93,21 @@ public class Context {
      */
     public void write(ByteBuffer message) {
         this.sendingMessageQueue.add(message);
+    }
+
+    /**
+     * 回写消息
+     * @param message 消息
+     */
+    public void write(Message message) {
+        this.write(message.encode());
+    }
+
+    /**
+     * 关闭连接
+     */
+    public void close() {
+        this.socketHandler.close(this);
     }
 
     /**
@@ -148,6 +169,22 @@ public class Context {
      */
     public void setServerSupporter(ServerSupporter serverSupporter) {
         this.serverSupporter = serverSupporter;
+    }
+
+    /**
+     * 获取Socket处理器
+     * @return Socket处理器
+     */
+    public SocketHandler getSocketHandler() {
+        return socketHandler;
+    }
+
+    /**
+     * 设置Socket处理器
+     * @param socketHandler Socket处理器
+     */
+    public void setSocketHandler(SocketHandler socketHandler) {
+        this.socketHandler = socketHandler;
     }
 
     /**
