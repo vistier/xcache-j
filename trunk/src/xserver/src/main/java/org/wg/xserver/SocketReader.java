@@ -43,22 +43,32 @@ public class SocketReader implements Runnable {
      * @see java.lang.Runnable#run()
      */
     public void run() {
+        int readLength = 0;
+
         try {
             ByteBuffer message = ByteBuffer.allocate(this.bufferSize);
 
-            while (this.socketChannel.read(message) > 0) {
+            // --读取消息并处理
+            while ((readLength = this.socketChannel.read(message)) > 0) {
                 message.flip();
 
-                context.receive(message);
-                
+                this.context.receive(message);
+
                 this.messageHandler.handle(context);
 
                 message.clear();
             }
+
+            // --关闭连接
+            if (readLength < 0) {
+                this.context.close();
+            }
         } catch (Exception e) {
             log.error("socket读取异常！", e);
         } finally {
-            context.resumeSelectRead();
+            if (readLength >= 0) {
+                context.resumeSelectRead();
+            }
         }
     }
 

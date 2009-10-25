@@ -68,6 +68,7 @@ public class SocketHandler {
             if (this.handler == null) {
                 this.selector = Selector.open();
 
+                // --启动处理器线程
                 this.handler = new Handler();
                 this.serverSupporter.getExecutor().execute(this.handler);
             }
@@ -86,12 +87,14 @@ public class SocketHandler {
 
         while ((socketChannel = this.socketChannelQueue.poll()) != null) {
             try {
+                // --初始化上下文
                 Context context = new Context();
                 context.setSocketChannel(socketChannel);
                 context.setServerSupporter(this.serverSupporter);
+                context.setSocketHandler(this);
 
                 socketChannel.configureBlocking(false);
-                context.setKey(socketChannel.register(selector, SelectionKey.OP_READ, context));
+                context.setKey(socketChannel.register(this.selector, SelectionKey.OP_READ, context));
 
                 SocketReader socketReader = new SocketReader(context);
                 this.contextSocketReaderMap.put(context, socketReader);
@@ -120,6 +123,8 @@ public class SocketHandler {
                 this.write(context);
             }
         }
+
+        keys.clear();
     }
 
     /**
@@ -130,6 +135,7 @@ public class SocketHandler {
         // 读取时，要暂停选择读取
         context.suspendSelectRead();
 
+        // --启动上下文关联的socket读取器线程
         SocketReader socketReader = this.contextSocketReaderMap.get(context);
         this.serverSupporter.getExecutor().execute(socketReader);
     }
@@ -142,8 +148,31 @@ public class SocketHandler {
         // 回写时，要暂停选择回写
         context.suspendSelectWrite();
 
+        // --上下文关联的socket回写器
         SocketWriter socketWriter = this.contextSocketWriterMap.get(context);
         this.serverSupporter.getExecutor().execute(socketWriter);
+    }
+
+    /**
+     * 关闭连接
+     * @param context 上下文
+     */
+    public void close(Context context) {
+        String address = context.getSocketChannel().socket().getRemoteSocketAddress().toString();
+
+        if (log.isInfoEnabled()) {
+            log.info("关闭来自" + address + "的连接。");
+        }
+
+        try {
+            context.getKey().cancel();
+            context.getSocketChannel().close();
+
+            this.contextSocketReaderMap.remove(context);
+            this.contextSocketWriterMap.remove(context);
+        } catch (Exception e) {
+            log.error("关闭来自" + address + "的连接异常！", e);
+        }
     }
 
     /**
@@ -160,15 +189,14 @@ public class SocketHandler {
 
             while (serverSupporter.isRunning()) {
                 try {
-                    selector.select(1000);
+                    // --选择器选择并处理
+                    int keyCount = selector.select(1000);
 
                     prepare();
 
-                    Set<SelectionKey> keys = selector.selectedKeys();
-
-                    handle(keys);
-
-                    keys.clear();
+                    if (keyCount > 0) {
+                        handle(selector.selectedKeys());
+                    }
                 } catch (Exception e) {
                     log.error("socket处理器异常！", e);
                 }

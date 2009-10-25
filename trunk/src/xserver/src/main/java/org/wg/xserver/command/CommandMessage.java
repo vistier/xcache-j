@@ -11,13 +11,13 @@ import org.wg.xserver.Message;
 public class CommandMessage extends Message {
 
     /** 消息长度 */
-    protected int length;
+    protected int   length = 8;
 
     /** 消息ID */
-    protected int id;
+    protected short id;
 
     /** 命令ID */
-    protected int commandId;
+    protected short commandId;
 
     /*
      * (non-Javadoc)
@@ -25,8 +25,13 @@ public class CommandMessage extends Message {
      */
     @Override
     public ByteBuffer encode() {
-        // TODO Auto-generated method stub
-        return null;
+        ByteBuffer message = ByteBuffer.allocate(this.length);
+        message.putInt(this.length);
+        message.putShort(this.id);
+        message.putShort(this.commandId);
+        message.flip();
+
+        return message;
     }
 
     /*
@@ -36,8 +41,9 @@ public class CommandMessage extends Message {
     @Override
     public void decode(ByteBuffer message) {
         this.message = message;
-
-        // TODO 解码
+        this.length = message.getInt();
+        this.id = message.getShort();
+        this.commandId = message.getShort();
     }
 
     /**
@@ -57,11 +63,27 @@ public class CommandMessage extends Message {
     }
 
     /**
+     * 设置消息ID
+     * @param id 消息ID
+     */
+    public void setId(short id) {
+        this.id = id;
+    }
+
+    /**
      * 获取命令ID
      * @return 命令ID
      */
     public int getCommandId() {
         return commandId;
+    }
+
+    /**
+     * 设置命令ID
+     * @param commandId 命令ID
+     */
+    public void setCommandId(short commandId) {
+        this.commandId = commandId;
     }
 
     /**
