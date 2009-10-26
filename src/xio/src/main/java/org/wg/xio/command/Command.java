@@ -1,6 +1,6 @@
-package org.wg.xserver.command;
+package org.wg.xio.command;
 
-import org.wg.xserver.context.Context;
+import org.wg.xio.context.Context;
 
 /**
  * 命令

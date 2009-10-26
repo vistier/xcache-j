@@ -1,16 +1,16 @@
-package org.wg.xserver;
+package org.wg.xio;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import org.wg.xserver.Xserver;
-import org.wg.xserver.command.CommandMessageHandler;
-import org.wg.xserver.command.TestCommandFactory;
-import org.wg.xserver.config.ServerConfig;
-import org.wg.xserver.context.ServerSupporter;
+import org.wg.xio.Xserver;
+import org.wg.xio.command.CommandMessageHandler;
+import org.wg.xio.command.TestCommandFactory;
+import org.wg.xio.config.ServerConfig;
+import org.wg.xio.context.ServerSupporter;
 
 /**
- * xserver测试
+ * xio测试
  * @author enychen Oct 12, 2009
  */
 public class XserverTest {
@@ -31,8 +31,8 @@ public class XserverTest {
         serverSupporter.setMessageHandler(commandMessageHandler);
         serverSupporter.setExecutor(executor);
 
-        Xserver xserver = new Xserver(serverSupporter);
-        xserver.start();
+        Xserver xio = new Xserver(serverSupporter);
+        xio.start();
     }
 
 }

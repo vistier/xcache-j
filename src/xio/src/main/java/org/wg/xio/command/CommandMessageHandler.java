@@ -1,11 +1,11 @@
-package org.wg.xserver.command;
+package org.wg.xio.command;
 
 import java.nio.ByteBuffer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.wg.xserver.MessageHandler;
-import org.wg.xserver.context.Context;
+import org.wg.xio.MessageHandler;
+import org.wg.xio.context.Context;
 
 /**
  * 命令消息处理器
@@ -21,7 +21,7 @@ public class CommandMessageHandler implements MessageHandler {
 
     /*
      * (non-Javadoc)
-     * @see org.wg.xserver.MessageHandler#handle(org.wg.xserver.Context)
+     * @see org.wg.xio.MessageHandler#handle(org.wg.xio.Context)
      */
     public void handle(Context context) {
         try {

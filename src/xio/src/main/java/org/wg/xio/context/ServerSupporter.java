@@ -1,9 +1,9 @@
-package org.wg.xserver.context;
+package org.wg.xio.context;
 
 import java.util.concurrent.Executor;
 
-import org.wg.xserver.MessageHandler;
-import org.wg.xserver.config.ServerConfig;
+import org.wg.xio.MessageHandler;
+import org.wg.xio.config.ServerConfig;
 
 /**
  * 服务器支持者

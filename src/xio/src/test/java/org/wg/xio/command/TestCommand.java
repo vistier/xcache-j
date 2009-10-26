@@ -1,8 +1,8 @@
-package org.wg.xserver.command;
+package org.wg.xio.command;
 
 import java.util.Date;
 
-import org.wg.xserver.context.Context;
+import org.wg.xio.context.Context;
 
 /**
  * 测试命令
@@ -12,15 +12,16 @@ public class TestCommand implements Command {
 
     /*
      * (non-Javadoc)
-     * @see org.wg.xserver.command.Command#execute(org.wg.xserver.command.CommandMessage,
-     *      org.wg.xserver.Context)
+     * @see org.wg.xio.command.Command#execute(org.wg.xio.command.CommandMessage,
+     *      org.wg.xio.Context)
      */
     public void execute(CommandMessage commandMessage, Context context) {
         TestRequest testRequest = new TestRequest(commandMessage);
         testRequest.decode(commandMessage.getMessage());
-        
-        String out = context.getSocketChannel().socket().getRemoteSocketAddress().toString() + "测试命令，length=" + testRequest.getLength() + ", id=" + testRequest.getId()
-                + ", commandId=" + testRequest.getCommandId() + ", test=" + testRequest.getTest();
+
+        String out = context.getClientAddress() + "-测试命令，length=" + testRequest.getLength()
+                + ", id=" + testRequest.getId() + ", commandId=" + testRequest.getCommandId()
+                + ", test=" + testRequest.getTest();
         System.out.println(out);
     }
 }

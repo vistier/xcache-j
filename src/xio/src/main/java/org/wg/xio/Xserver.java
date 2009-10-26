@@ -1,4 +1,4 @@
-package org.wg.xserver;
+package org.wg.xio;
 
 import java.net.InetSocketAddress;
 import java.nio.channels.ServerSocketChannel;
@@ -6,7 +6,7 @@ import java.nio.channels.SocketChannel;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.wg.xserver.context.ServerSupporter;
+import org.wg.xio.context.ServerSupporter;
 
 /**
  * Xserver

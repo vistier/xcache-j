@@ -1,4 +1,4 @@
-package org.wg.xserver.command;
+package org.wg.xio.command;
 
 /**
  * 命令工厂

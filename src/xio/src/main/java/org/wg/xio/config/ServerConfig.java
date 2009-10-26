@@ -1,4 +1,4 @@
-package org.wg.xserver.config;
+package org.wg.xio.config;
 
 /**
  * 服务器配置

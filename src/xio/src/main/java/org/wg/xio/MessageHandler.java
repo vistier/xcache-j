@@ -1,6 +1,6 @@
-package org.wg.xserver;
+package org.wg.xio;
 
-import org.wg.xserver.context.Context;
+import org.wg.xio.context.Context;
 
 /**
  * 消息处理器

@@ -1,4 +1,4 @@
-package org.wg.xserver.context;
+package org.wg.xio.context;
 
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
@@ -6,8 +6,8 @@ import java.nio.channels.SocketChannel;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import org.wg.xserver.Message;
-import org.wg.xserver.SocketHandler;
+import org.wg.xio.Message;
+import org.wg.xio.SocketHandler;
 
 /**
  * 上下文
@@ -17,6 +17,9 @@ public class Context {
 
     /** socket通道 */
     private SocketChannel     socketChannel;
+
+    /** 客户端地址 */
+    private String            clientAddress;
 
     /** 服务器支持者 */
     private ServerSupporter   serverSupporter;
@@ -152,7 +155,15 @@ public class Context {
      */
     public void setSocketChannel(SocketChannel socketChannel) {
         this.socketChannel = socketChannel;
+        this.clientAddress = socketChannel.socket().getRemoteSocketAddress().toString();
+    }
 
+    /**
+     * 获取客户端地址
+     * @return 客户端地址
+     */
+    public String getClientAddress() {
+        return clientAddress;
     }
 
     /**
