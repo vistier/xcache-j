@@ -18,8 +18,8 @@ public class Context {
     /** socket通道 */
     private SocketChannel     socketChannel;
 
-    /** 客户端地址 */
-    private String            clientAddress;
+    /** 主机地址 */
+    private String            hostAddress;
 
     /** 服务器支持者 */
     private ServerSupporter   serverSupporter;
@@ -36,11 +36,8 @@ public class Context {
     /** 将要发送消息的队列 */
     private Queue<ByteBuffer> sendingMessageQueue = new ConcurrentLinkedQueue<ByteBuffer>();
 
-    /** 是否正在回写 */
+    /** 是否正在写入 */
     private boolean           writing;
-
-    /** 回写锁 */
-    private Object            writeLock           = new Object();
 
     /**
      * 接收消息
@@ -91,15 +88,23 @@ public class Context {
     }
 
     /**
-     * 回写消息
+     * 写入消息
      * @param message 消息
      */
     public void write(ByteBuffer message) {
+        // 放入队列，准备发送
         this.sendingMessageQueue.add(message);
+
+        // --标记写入，选择写入
+        if (!this.writing) {
+            this.writing = true;
+
+            this.resumeSelectWrite();
+        }
     }
 
     /**
-     * 回写消息
+     * 写入消息
      * @param message 消息
      */
     public void write(Message message) {
@@ -125,20 +130,29 @@ public class Context {
      */
     public void resumeSelectRead() {
         this.key.interestOps(this.key.interestOps() | SelectionKey.OP_READ);
+        this.key.selector().wakeup();
     }
 
     /**
-     * 暂停选择回写
+     * 暂停选择写入
      */
     public void suspendSelectWrite() {
         this.key.interestOps(this.key.interestOps() & ~SelectionKey.OP_WRITE);
     }
 
     /**
-     * 继续选择回写
+     * 继续选择写入
      */
     public void resumeSelectWrite() {
         this.key.interestOps(this.key.interestOps() | SelectionKey.OP_WRITE);
+        this.key.selector().wakeup();
+    }
+
+    /**
+     * 写入完成
+     */
+    public void writeFinished() {
+        this.writing = false;
     }
 
     /**
@@ -155,15 +169,15 @@ public class Context {
      */
     public void setSocketChannel(SocketChannel socketChannel) {
         this.socketChannel = socketChannel;
-        this.clientAddress = socketChannel.socket().getRemoteSocketAddress().toString();
+        this.hostAddress = socketChannel.socket().getRemoteSocketAddress().toString();
     }
 
     /**
-     * 获取客户端地址
-     * @return 客户端地址
+     * 获取主机地址
+     * @return 主机地址
      */
-    public String getClientAddress() {
-        return clientAddress;
+    public String getHostAddress() {
+        return hostAddress;
     }
 
     /**
@@ -228,6 +242,14 @@ public class Context {
      */
     public void setReceivedMessageBuffer(ByteBuffer receivedMessageBuffer) {
         this.receivedMessageBuffer = receivedMessageBuffer;
+    }
+
+    /**
+     * 获取将要发送消息的队列
+     * @return 将要发送消息的队列
+     */
+    public Queue<ByteBuffer> getSendingMessageQueue() {
+        return sendingMessageQueue;
     }
 
 }
