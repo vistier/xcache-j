@@ -1,9 +1,9 @@
-package org.wg.xserver;
+package org.wg.xio;
 
 import java.net.InetSocketAddress;
 import java.nio.channels.SocketChannel;
 
-import org.wg.xserver.command.TestRequest;
+import org.wg.xio.command.TestRequest;
 
 /**
  * 测试客户端

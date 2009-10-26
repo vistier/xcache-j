@@ -1,8 +1,8 @@
-package org.wg.xserver;
+package org.wg.xio;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.wg.xserver.context.Context;
+import org.wg.xio.context.Context;
 
 /**
  * socket回写器

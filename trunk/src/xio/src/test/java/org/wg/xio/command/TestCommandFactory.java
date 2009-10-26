@@ -1,8 +1,8 @@
-package org.wg.xserver.command;
+package org.wg.xio.command;
 
-import org.wg.xserver.command.Command;
-import org.wg.xserver.command.CommandFactory;
-import org.wg.xserver.command.CommandMessage;
+import org.wg.xio.command.Command;
+import org.wg.xio.command.CommandFactory;
+import org.wg.xio.command.CommandMessage;
 
 /**
  * 测试命令工厂
@@ -12,7 +12,7 @@ public class TestCommandFactory implements CommandFactory {
 
     /*
      * (non-Javadoc)
-     * @see org.wg.xserver.command.CommandFactory#getCommand(org.wg.xserver.command.CommandMessage)
+     * @see org.wg.xio.command.CommandFactory#getCommand(org.wg.xio.command.CommandMessage)
      */
     public Command getCommand(CommandMessage commandMessage) {
         return new TestCommand();

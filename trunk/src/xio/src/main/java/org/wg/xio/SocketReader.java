@@ -1,4 +1,4 @@
-package org.wg.xserver;
+package org.wg.xio;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -6,7 +6,7 @@ import java.nio.channels.SocketChannel;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.wg.xserver.context.Context;
+import org.wg.xio.context.Context;
 
 /**
  * socket读取器

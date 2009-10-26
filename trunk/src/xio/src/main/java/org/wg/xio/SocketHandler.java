@@ -1,4 +1,4 @@
-package org.wg.xserver;
+package org.wg.xio;
 
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
@@ -11,8 +11,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.wg.xserver.context.Context;
-import org.wg.xserver.context.ServerSupporter;
+import org.wg.xio.context.Context;
+import org.wg.xio.context.ServerSupporter;
 
 /**
  * Socket处理器
@@ -158,10 +158,8 @@ public class SocketHandler {
      * @param context 上下文
      */
     public void close(Context context) {
-        String address = context.getSocketChannel().socket().getRemoteSocketAddress().toString();
-
         if (log.isInfoEnabled()) {
-            log.info("关闭来自" + address + "的连接。");
+            log.info("关闭来自" + context.getClientAddress() + "的连接。");
         }
 
         try {
@@ -171,7 +169,7 @@ public class SocketHandler {
             this.contextSocketReaderMap.remove(context);
             this.contextSocketWriterMap.remove(context);
         } catch (Exception e) {
-            log.error("关闭来自" + address + "的连接异常！", e);
+            log.error("关闭来自" + context.getClientAddress() + "的连接异常！", e);
         }
     }
 

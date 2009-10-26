@@ -1,8 +1,8 @@
-package org.wg.xserver.command;
+package org.wg.xio.command;
 
 import java.nio.ByteBuffer;
 
-import org.wg.xserver.Message;
+import org.wg.xio.Message;
 
 /**
  * 命令消息
@@ -27,7 +27,7 @@ public class CommandMessage extends Message {
 
     /*
      * (non-Javadoc)
-     * @see org.wg.xserver.Message#encode()
+     * @see org.wg.xio.Message#encode()
      */
     @Override
     public ByteBuffer encode() {
@@ -42,7 +42,7 @@ public class CommandMessage extends Message {
 
     /*
      * (non-Javadoc)
-     * @see org.wg.xserver.Message#decode(java.nio.ByteBuffer)
+     * @see org.wg.xio.Message#decode(java.nio.ByteBuffer)
      */
     @Override
     public void decode(ByteBuffer message) {
