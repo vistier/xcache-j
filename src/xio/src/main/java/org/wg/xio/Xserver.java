@@ -20,22 +20,22 @@ public class Xserver {
     private static final Log log = LogFactory.getLog(Xserver.class);
 
     /** 服务器socket通道 */
-    ServerSocketChannel      serverSocketChannel;
+    protected ServerSocketChannel      serverSocketChannel;
 
     /** 服务器支持者 */
-    private ServerSupporter  serverSupporter;
+    protected ServerSupporter  serverSupporter;
 
     /** Socket处理器 */
-    private SocketHandler[]  socketHandlers;
+    protected SocketHandler[]  socketHandlers;
 
     /** socket处理器数量 */
-    private int              socketHandlerCount;
+    protected int              socketHandlerCount;
 
     /** 接收器 */
-    private Acceptor         acceptor;
+    protected Acceptor         acceptor;
 
     /** 已接收的次数 */
-    private int              acceptedTimes;
+    protected int              acceptedTimes;
 
     /**
      * 创建Xserver

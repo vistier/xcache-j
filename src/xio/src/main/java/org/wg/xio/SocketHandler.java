@@ -24,22 +24,22 @@ public class SocketHandler {
     private static final Log           log                    = LogFactory.getLog(SocketHandler.class);
 
     /** 服务器支持者 */
-    private ServerSupporter            serverSupporter;
+    protected ServerSupporter            serverSupporter;
 
     /** 选择器 */
-    private Selector                   selector;
+    protected Selector                   selector;
 
     /** 处理器 */
-    private Handler                    handler;
+    protected Handler                    handler;
 
     /** socket通道队列 */
-    private Queue<SocketChannel>       socketChannelQueue     = new ConcurrentLinkedQueue<SocketChannel>();
+    protected Queue<SocketChannel>       socketChannelQueue     = new ConcurrentLinkedQueue<SocketChannel>();
 
     /** 上下文关联的socket读取器Map */
-    private Map<Context, SocketReader> contextSocketReaderMap = new ConcurrentHashMap<Context, SocketReader>();
+    protected Map<Context, SocketReader> contextSocketReaderMap = new ConcurrentHashMap<Context, SocketReader>();
 
-    /** 上下文关联的socket回写器Map */
-    private Map<Context, SocketWriter> contextSocketWriterMap = new ConcurrentHashMap<Context, SocketWriter>();
+    /** 上下文关联的socket写入器Map */
+    protected Map<Context, SocketWriter> contextSocketWriterMap = new ConcurrentHashMap<Context, SocketWriter>();
 
     /**
      * 创建Socket处理器
@@ -54,7 +54,7 @@ public class SocketHandler {
     // 1、绑定socket通道；
     // 2、启动处理线程；
     // 3、处理前准备；
-    // 4、处理，或者读取，或者回写。
+    // 4、处理，或者读取，或者写入。
     // ------------------------------------------------------------
 
     /**
@@ -141,14 +141,14 @@ public class SocketHandler {
     }
 
     /**
-     * 回写
+     * 写入
      * @param context 上下文
      */
     protected void write(Context context) {
-        // 回写时，要暂停选择回写
+        // 写入时，要暂停选择写入
         context.suspendSelectWrite();
 
-        // --上下文关联的socket回写器
+        // --启动上下文关联的socket写入器线程
         SocketWriter socketWriter = this.contextSocketWriterMap.get(context);
         this.serverSupporter.getExecutor().execute(socketWriter);
     }
@@ -159,7 +159,7 @@ public class SocketHandler {
      */
     public void close(Context context) {
         if (log.isInfoEnabled()) {
-            log.info("关闭来自" + context.getClientAddress() + "的连接。");
+            log.info("关闭来自" + context.getHostAddress() + "的连接。");
         }
 
         try {
@@ -169,7 +169,7 @@ public class SocketHandler {
             this.contextSocketReaderMap.remove(context);
             this.contextSocketWriterMap.remove(context);
         } catch (Exception e) {
-            log.error("关闭来自" + context.getClientAddress() + "的连接异常！", e);
+            log.error("关闭来自" + context.getHostAddress() + "的连接异常！", e);
         }
     }
 

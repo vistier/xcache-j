@@ -1,7 +1,5 @@
 package org.wg.xio.command;
 
-import java.util.Date;
-
 import org.wg.xio.context.Context;
 
 /**
@@ -19,7 +17,7 @@ public class TestCommand implements Command {
         TestRequest testRequest = new TestRequest(commandMessage);
         testRequest.decode(commandMessage.getMessage());
 
-        String out = context.getClientAddress() + "-测试命令，length=" + testRequest.getLength()
+        String out = context.getHostAddress() + "-测试命令，length=" + testRequest.getLength()
                 + ", id=" + testRequest.getId() + ", commandId=" + testRequest.getCommandId()
                 + ", test=" + testRequest.getTest();
         System.out.println(out);

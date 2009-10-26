@@ -24,11 +24,14 @@ public class XserverTest {
         CommandMessageHandler commandMessageHandler = new CommandMessageHandler();
         commandMessageHandler.setCommandFactory(defaultCommandFactory);
 
+        SimpleTelnet simpleTelnet = new SimpleTelnet();
+        
         Executor executor = Executors.newCachedThreadPool();
 
         ServerSupporter serverSupporter = new ServerSupporter();
         serverSupporter.setServerConfig(serverConfig);
         serverSupporter.setMessageHandler(commandMessageHandler);
+        //serverSupporter.setMessageHandler(simpleTelnet);
         serverSupporter.setExecutor(executor);
 
         Xserver xio = new Xserver(serverSupporter);
