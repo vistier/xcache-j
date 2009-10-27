@@ -6,7 +6,7 @@ import java.nio.channels.SocketChannel;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.wg.xio.context.ServerSupporter;
+import org.wg.xio.config.Supporter;
 
 /**
  * Xserver
@@ -17,31 +17,31 @@ import org.wg.xio.context.ServerSupporter;
 public class Xserver {
 
     /** log */
-    private static final Log log = LogFactory.getLog(Xserver.class);
+    private static final Log      log = LogFactory.getLog(Xserver.class);
 
     /** 服务器socket通道 */
-    protected ServerSocketChannel      serverSocketChannel;
+    protected ServerSocketChannel serverSocketChannel;
 
     /** 服务器支持者 */
-    protected ServerSupporter  serverSupporter;
+    protected Supporter     serverSupporter;
 
     /** Socket处理器 */
-    protected SocketHandler[]  socketHandlers;
+    protected SocketHandler[]     socketHandlers;
 
     /** socket处理器数量 */
-    protected int              socketHandlerCount;
+    protected int                 socketHandlerCount;
 
     /** 接收器 */
-    protected Acceptor         acceptor;
+    protected Acceptor            acceptor;
 
     /** 已接收的次数 */
-    protected int              acceptedTimes;
+    protected int                 acceptedTimes;
 
     /**
      * 创建Xserver
      * @param serverSupporter 服务器支持者
      */
-    public Xserver(ServerSupporter serverSupporter) {
+    public Xserver(Supporter serverSupporter) {
         this.serverSupporter = serverSupporter;
 
         this.socketHandlerCount = serverSupporter.getServerConfig().getSocketHandlerCount();
@@ -85,6 +85,15 @@ public class Xserver {
                 serverSocketChannel.socket().bind(address);
             } catch (Exception e) {
                 log.error("服务器启动异常！", e);
+
+                // --服务器关闭
+                if (serverSocketChannel != null) {
+                    try {
+                        serverSocketChannel.close();
+                    } catch (Exception e1) {
+                        log.error("服务器关闭异常！", e1);
+                    }
+                }
 
                 return;
             }

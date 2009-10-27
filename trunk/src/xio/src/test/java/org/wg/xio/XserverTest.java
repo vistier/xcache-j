@@ -6,17 +6,17 @@ import java.util.concurrent.Executors;
 import org.wg.xio.Xserver;
 import org.wg.xio.command.CommandMessageHandler;
 import org.wg.xio.command.TestCommandFactory;
-import org.wg.xio.config.ServerConfig;
-import org.wg.xio.context.ServerSupporter;
+import org.wg.xio.config.Config;
+import org.wg.xio.config.Supporter;
 
 /**
- * xio测试
+ * xserver测试
  * @author enychen Oct 12, 2009
  */
 public class XserverTest {
 
     public static void main(String[] args) {
-        ServerConfig serverConfig = new ServerConfig();
+        Config serverConfig = new Config();
         serverConfig.setPort(1234);
         serverConfig.setSocketHandlerCount(2);
 
@@ -28,7 +28,7 @@ public class XserverTest {
         
         Executor executor = Executors.newCachedThreadPool();
 
-        ServerSupporter serverSupporter = new ServerSupporter();
+        Supporter serverSupporter = new Supporter();
         serverSupporter.setServerConfig(serverConfig);
         serverSupporter.setMessageHandler(commandMessageHandler);
         //serverSupporter.setMessageHandler(simpleTelnet);
