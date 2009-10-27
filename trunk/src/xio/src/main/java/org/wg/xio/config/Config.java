@@ -4,16 +4,38 @@ package org.wg.xio.config;
  * 服务器配置
  * @author enychen Oct 11, 2009
  */
-public class ServerConfig {
+public class Config {
+
+    /** IP地址 */
+    private String  ip                 = "127.0.0.1";
 
     /** 端口 */
-    private int port               = 1234;
+    private int     port               = 1234;
 
     /** socket处理器数量 */
-    private int SocketHandlerCount = 1;
+    private int     SocketHandlerCount = 1;
 
     /** 缓冲区大小 */
-    private int bufferSize         = 1024;
+    private int     bufferSize         = 1024;
+
+    /** 是否同步调用 */
+    private boolean sync;
+
+    /**
+     * 获取IP地址
+     * @return IP地址
+     */
+    public String getIp() {
+        return ip;
+    }
+
+    /**
+     * 设置IP地址
+     * @param ip IP地址
+     */
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
 
     /**
      * 获取端口
@@ -61,6 +83,22 @@ public class ServerConfig {
      */
     public void setBufferSize(int bufferSize) {
         this.bufferSize = bufferSize;
+    }
+
+    /**
+     * 获取是否同步调用
+     * @return 是否同步调用
+     */
+    public boolean isSync() {
+        return sync;
+    }
+
+    /**
+     * 设置是否同步调用
+     * @param sync 是否同步调用
+     */
+    public void setSync(boolean sync) {
+        this.sync = sync;
     }
 
 }
