@@ -24,7 +24,7 @@ public class XserverTest {
         CommandMessageHandler commandMessageHandler = new CommandMessageHandler();
         commandMessageHandler.setCommandFactory(defaultCommandFactory);
 
-        SimpleTelnet simpleTelnet = new SimpleTelnet();
+        //SimpleTelnet simpleTelnet = new SimpleTelnet();
         
         Executor executor = Executors.newCachedThreadPool();
 
