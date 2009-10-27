@@ -18,16 +18,16 @@ public class SocketReader implements Runnable {
     private static final Log log = LogFactory.getLog(SocketReader.class);
 
     /** 上下文 */
-    protected Context          context;
+    protected Context        context;
 
     /**  */
-    protected SocketChannel    socketChannel;
+    protected SocketChannel  socketChannel;
 
     /** 消息处理器 */
-    protected MessageHandler   messageHandler;
+    protected MessageHandler messageHandler;
 
     /** 缓冲区大小 */
-    protected int              bufferSize;
+    protected int            bufferSize;
 
     /**
      * 创建socket读取器
@@ -47,7 +47,7 @@ public class SocketReader implements Runnable {
         try {
             ByteBuffer message = ByteBuffer.allocate(this.bufferSize);
             int readLength;
-            
+
             // --读取消息并处理
             while ((readLength = this.socketChannel.read(message)) > 0) {
                 message.flip();

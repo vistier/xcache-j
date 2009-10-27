@@ -16,31 +16,31 @@ import org.apache.commons.logging.LogFactory;
 public class Xconnector {
 
     /** log */
-    private static final Log  log                 = LogFactory.getLog(Xconnector.class);
+    private static final Log log = LogFactory.getLog(Xconnector.class);
 
     /** socket通道 */
-    protected SocketChannel   socketChannel;
+    protected SocketChannel  socketChannel;
 
     /** IP地址 */
-    protected String          ip;
+    protected String         ip;
 
     /** 端口 */
-    protected int             port;
+    protected int            port;
 
     /** 是否已经连接 */
-    protected boolean         connected;
+    protected boolean        connected;
 
     /** 是否在使用 */
-    protected boolean         used;
+    protected boolean        used;
 
     /**
      * 创建X连接器
      * @param connectorConfig 连接器配置
      */
     public Xconnector() {
-//        this.connectorConfig = connectorConfig;
-//        this.ip = connectorConfig.getServerIp();
-//        this.port = connectorConfig.getServerPort();
+        // this.connectorConfig = connectorConfig;
+        // this.ip = connectorConfig.getServerIp();
+        // this.port = connectorConfig.getServerPort();
     }
 
     /**

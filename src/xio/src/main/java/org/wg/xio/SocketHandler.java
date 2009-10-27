@@ -21,10 +21,10 @@ import org.wg.xio.context.Context;
 public class SocketHandler {
 
     /** log */
-    private static final Log           log                    = LogFactory.getLog(SocketHandler.class);
+    private static final Log             log                    = LogFactory.getLog(SocketHandler.class);
 
     /** 服务器支持者 */
-    protected Supporter            supporter;
+    protected Supporter                  supporter;
 
     /** 选择器 */
     protected Selector                   selector;

@@ -17,9 +17,9 @@ public class TestCommand implements Command {
         TestRequest testRequest = new TestRequest(commandMessage);
         testRequest.decode(commandMessage.getMessage());
 
-        String out = context.getHostAddress() + "-测试命令，length=" + testRequest.getLength()
-                + ", id=" + testRequest.getId() + ", commandId=" + testRequest.getCommandId()
-                + ", test=" + testRequest.getTest();
+        String out = context.getHostAddress() + "-测试命令，length=" + testRequest.getLength() + ", id="
+                + testRequest.getId() + ", commandId=" + testRequest.getCommandId() + ", test="
+                + testRequest.getTest();
         System.out.println(out);
     }
 }

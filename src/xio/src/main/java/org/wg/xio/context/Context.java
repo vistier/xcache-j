@@ -23,7 +23,7 @@ public class Context {
     private String            hostAddress;
 
     /** 服务器支持者 */
-    private Supporter   supporter;
+    private Supporter         supporter;
 
     /** Socket处理器 */
     private SocketHandler     socketHandler;
