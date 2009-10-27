@@ -17,7 +17,7 @@ public class CommandMessageHandler implements MessageHandler {
     private static final Log log = LogFactory.getLog(CommandMessageHandler.class);
 
     /** 命令工厂 */
-    protected CommandFactory   commandFactory;
+    protected CommandFactory commandFactory;
 
     /*
      * (non-Javadoc)

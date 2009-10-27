@@ -33,14 +33,14 @@ public class TestRequest extends CommandMessage {
     public ByteBuffer encode() {
         byte[] testBytes = this.test.getBytes();
         this.length = HEADER_LENGTH + testBytes.length;
-        
+
         ByteBuffer message = ByteBuffer.allocate(this.length);
         message.putInt(this.length);
         message.putShort(this.id);
         message.putShort(this.commandId);
         message.put(testBytes);
         message.flip();
-        
+
         return message;
     }
 

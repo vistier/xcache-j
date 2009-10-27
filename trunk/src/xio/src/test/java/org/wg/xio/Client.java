@@ -23,7 +23,7 @@ public class Client {
             test.setCommandId((short) (1000 + i));
             test.setTest("123哈哈！abc第一次测试！");
             socketChannel.write(test.encode());
-            
+
             Thread.sleep(100);
         }
 

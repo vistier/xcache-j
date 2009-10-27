@@ -23,7 +23,7 @@ public class Xserver {
     protected ServerSocketChannel serverSocketChannel;
 
     /** 服务器支持者 */
-    protected Supporter     supporter;
+    protected Supporter           supporter;
 
     /** Socket处理器 */
     protected SocketHandler[]     socketHandlers;
