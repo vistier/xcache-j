@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.wg.xio.Message;
 import org.wg.xio.SocketHandler;
+import org.wg.xio.config.Supporter;
 
 /**
  * 上下文
@@ -22,7 +23,7 @@ public class Context {
     private String            hostAddress;
 
     /** 服务器支持者 */
-    private ServerSupporter   serverSupporter;
+    private Supporter   serverSupporter;
 
     /** Socket处理器 */
     private SocketHandler     socketHandler;
@@ -184,7 +185,7 @@ public class Context {
      * 获取服务器支持者
      * @return 服务器支持者
      */
-    public ServerSupporter getServerSupporter() {
+    public Supporter getServerSupporter() {
         return serverSupporter;
     }
 
@@ -192,7 +193,7 @@ public class Context {
      * 设置服务器支持者
      * @param serverSupporter 服务器支持者
      */
-    public void setServerSupporter(ServerSupporter serverSupporter) {
+    public void setServerSupporter(Supporter serverSupporter) {
         this.serverSupporter = serverSupporter;
     }
 
