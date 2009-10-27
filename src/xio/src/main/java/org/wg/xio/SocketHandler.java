@@ -24,7 +24,7 @@ public class SocketHandler {
     private static final Log           log                    = LogFactory.getLog(SocketHandler.class);
 
     /** 服务器支持者 */
-    protected Supporter            serverSupporter;
+    protected Supporter            supporter;
 
     /** 选择器 */
     protected Selector                   selector;
@@ -43,10 +43,10 @@ public class SocketHandler {
 
     /**
      * 创建Socket处理器
-     * @param serverSupporter 服务器支持者
+     * @param supporter 服务器支持者
      */
-    public SocketHandler(Supporter serverSupporter) {
-        this.serverSupporter = serverSupporter;
+    public SocketHandler(Supporter supporter) {
+        this.supporter = supporter;
     }
 
     // ------------------------------------------------------------
@@ -70,7 +70,7 @@ public class SocketHandler {
 
                 // --启动处理器线程
                 this.handler = new Handler();
-                this.serverSupporter.getExecutor().execute(this.handler);
+                this.supporter.getExecutor().execute(this.handler);
             }
 
             this.selector.wakeup();
@@ -90,7 +90,7 @@ public class SocketHandler {
                 // --初始化上下文
                 Context context = new Context();
                 context.setSocketChannel(socketChannel);
-                context.setServerSupporter(this.serverSupporter);
+                context.setSupporter(this.supporter);
                 context.setSocketHandler(this);
 
                 socketChannel.configureBlocking(false);
@@ -137,7 +137,7 @@ public class SocketHandler {
 
         // --启动上下文关联的socket读取器线程
         SocketReader socketReader = this.contextSocketReaderMap.get(context);
-        this.serverSupporter.getExecutor().execute(socketReader);
+        this.supporter.getExecutor().execute(socketReader);
     }
 
     /**
@@ -150,7 +150,7 @@ public class SocketHandler {
 
         // --启动上下文关联的socket写入器线程
         SocketWriter socketWriter = this.contextSocketWriterMap.get(context);
-        this.serverSupporter.getExecutor().execute(socketWriter);
+        this.supporter.getExecutor().execute(socketWriter);
     }
 
     /**
@@ -185,7 +185,7 @@ public class SocketHandler {
          */
         public void run() {
 
-            while (serverSupporter.isRunning()) {
+            while (supporter.isRunning()) {
                 try {
                     // --选择器选择并处理
                     int keyCount = selector.select(1000);

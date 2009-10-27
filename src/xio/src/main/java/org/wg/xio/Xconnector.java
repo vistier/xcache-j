@@ -3,12 +3,9 @@ package org.wg.xio;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.wg.xio.config.ConnectorConfig;
 
 /**
  * X连接器
@@ -21,19 +18,13 @@ public class Xconnector {
     /** log */
     private static final Log  log                 = LogFactory.getLog(Xconnector.class);
 
-    /** 连接器配置 */
-    protected ConnectorConfig connectorConfig;
-
     /** socket通道 */
     protected SocketChannel   socketChannel;
 
-    /** 将要发送消息的队列 */
-    private Queue<ByteBuffer> sendingMessageQueue = new ConcurrentLinkedQueue<ByteBuffer>();
-
-    /** 服务器IP */
+    /** IP地址 */
     protected String          ip;
 
-    /** 服务器端口 */
+    /** 端口 */
     protected int             port;
 
     /** 是否已经连接 */
@@ -46,10 +37,10 @@ public class Xconnector {
      * 创建X连接器
      * @param connectorConfig 连接器配置
      */
-    public Xconnector(ConnectorConfig connectorConfig) {
-        this.connectorConfig = connectorConfig;
-        this.ip = connectorConfig.getServerIp();
-        this.port = connectorConfig.getServerPort();
+    public Xconnector() {
+//        this.connectorConfig = connectorConfig;
+//        this.ip = connectorConfig.getServerIp();
+//        this.port = connectorConfig.getServerPort();
     }
 
     /**
@@ -93,15 +84,7 @@ public class Xconnector {
      * @return 响应消息
      */
     public ByteBuffer send(ByteBuffer request) {
-        this.sendingMessageQueue.add(request);
-
         ByteBuffer response = null;
-
-        if (this.connectorConfig.isSync()) {
-            response = this.syncSend();
-        } else {
-            this.asyncSend();
-        }
 
         return response;
     }
@@ -113,31 +96,6 @@ public class Xconnector {
      */
     public ByteBuffer send(Message request) {
         return this.send(request.encode());
-    }
-
-    /**
-     * 同步发送
-     * @return 响应消息
-     */
-    protected ByteBuffer syncSend() {
-        try {
-            ByteBuffer request = this.sendingMessageQueue.poll();
-
-            while (request.hasRemaining()) {
-                this.socketChannel.write(request);
-            }
-        } catch (Exception e) {
-            log.error("消息发送异常！", e);
-        }
-
-        return null;
-    }
-
-    /**
-     * 异步发送
-     */
-    protected void asyncSend() {
-
     }
 
     /**

@@ -16,9 +16,9 @@ import org.wg.xio.config.Supporter;
 public class XserverTest {
 
     public static void main(String[] args) {
-        Config serverConfig = new Config();
-        serverConfig.setPort(1234);
-        serverConfig.setSocketHandlerCount(2);
+        Config config = new Config();
+        config.setPort(1234);
+        config.setSocketHandlerCount(2);
 
         TestCommandFactory defaultCommandFactory = new TestCommandFactory();
         CommandMessageHandler commandMessageHandler = new CommandMessageHandler();
@@ -28,13 +28,13 @@ public class XserverTest {
         
         Executor executor = Executors.newCachedThreadPool();
 
-        Supporter serverSupporter = new Supporter();
-        serverSupporter.setServerConfig(serverConfig);
-        serverSupporter.setMessageHandler(commandMessageHandler);
-        //serverSupporter.setMessageHandler(simpleTelnet);
-        serverSupporter.setExecutor(executor);
+        Supporter supporter = new Supporter();
+        supporter.setConfig(config);
+        supporter.setMessageHandler(commandMessageHandler);
+        //supporter.setMessageHandler(simpleTelnet);
+        supporter.setExecutor(executor);
 
-        Xserver xio = new Xserver(serverSupporter);
+        Xserver xio = new Xserver(supporter);
         xio.start();
     }
 
