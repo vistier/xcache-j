@@ -36,8 +36,8 @@ public class SocketReader implements Runnable {
     public SocketReader(Context context) {
         this.context = context;
         this.socketChannel = context.getSocketChannel();
-        this.messageHandler = context.getServerSupporter().getMessageHandler();
-        this.bufferSize = context.getServerSupporter().getServerConfig().getBufferSize();
+        this.messageHandler = context.getSupporter().getMessageHandler();
+        this.bufferSize = context.getSupporter().getConfig().getBufferSize();
     }
 
     /*

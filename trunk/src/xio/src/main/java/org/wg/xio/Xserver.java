@@ -23,7 +23,7 @@ public class Xserver {
     protected ServerSocketChannel serverSocketChannel;
 
     /** 服务器支持者 */
-    protected Supporter     serverSupporter;
+    protected Supporter     supporter;
 
     /** Socket处理器 */
     protected SocketHandler[]     socketHandlers;
@@ -39,16 +39,16 @@ public class Xserver {
 
     /**
      * 创建Xserver
-     * @param serverSupporter 服务器支持者
+     * @param supporter 服务器支持者
      */
-    public Xserver(Supporter serverSupporter) {
-        this.serverSupporter = serverSupporter;
+    public Xserver(Supporter supporter) {
+        this.supporter = supporter;
 
-        this.socketHandlerCount = serverSupporter.getServerConfig().getSocketHandlerCount();
+        this.socketHandlerCount = supporter.getConfig().getSocketHandlerCount();
         this.socketHandlers = new SocketHandler[this.socketHandlerCount];
 
         for (int i = 0; i < this.socketHandlerCount; i++) {
-            this.socketHandlers[i] = new SocketHandler(serverSupporter);
+            this.socketHandlers[i] = new SocketHandler(supporter);
         }
     }
 
@@ -59,7 +59,7 @@ public class Xserver {
         if (this.acceptor == null) {
             // --启动接收器线程
             this.acceptor = new Acceptor();
-            this.serverSupporter.getExecutor().execute(acceptor);
+            this.supporter.getExecutor().execute(acceptor);
         }
 
         if (log.isInfoEnabled()) {
@@ -81,7 +81,7 @@ public class Xserver {
             try {
                 // --服务器启动
                 serverSocketChannel = ServerSocketChannel.open();
-                InetSocketAddress address = new InetSocketAddress(serverSupporter.getServerConfig().getPort());
+                InetSocketAddress address = new InetSocketAddress(supporter.getConfig().getPort());
                 serverSocketChannel.socket().bind(address);
             } catch (Exception e) {
                 log.error("服务器启动异常！", e);
@@ -98,7 +98,7 @@ public class Xserver {
                 return;
             }
 
-            while (serverSupporter.isRunning()) {
+            while (supporter.isRunning()) {
                 try {
                     // 等待接收连接
                     SocketChannel socketChannel = serverSocketChannel.accept();

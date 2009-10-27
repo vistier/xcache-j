@@ -14,7 +14,7 @@ public class Supporter {
     private boolean        running = true;
 
     /** 服务器配置 */
-    private Config   serverConfig;
+    private Config         config;
 
     /** 消息处理器 */
     private MessageHandler messageHandler;
@@ -42,16 +42,16 @@ public class Supporter {
      * 获取服务器配置
      * @return 服务器配置
      */
-    public Config getServerConfig() {
-        return serverConfig;
+    public Config getConfig() {
+        return config;
     }
 
     /**
      * 设置服务器配置
-     * @param serverConfig 服务器配置
+     * @param config 服务器配置
      */
-    public void setServerConfig(Config serverConfig) {
-        this.serverConfig = serverConfig;
+    public void setConfig(Config config) {
+        this.config = config;
     }
 
     /**
