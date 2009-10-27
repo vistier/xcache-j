@@ -54,7 +54,9 @@ public class SocketReader implements Runnable {
 
                 this.context.receive(message);
 
-                this.messageHandler.handle(context);
+                if (this.messageHandler != null) {
+                    this.messageHandler.handle(context);
+                }
 
                 message.clear();
             }

@@ -11,8 +11,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.wg.xio.config.Supporter;
 import org.wg.xio.context.Context;
-import org.wg.xio.context.ServerSupporter;
 
 /**
  * Socket处理器
@@ -24,7 +24,7 @@ public class SocketHandler {
     private static final Log           log                    = LogFactory.getLog(SocketHandler.class);
 
     /** 服务器支持者 */
-    protected ServerSupporter            serverSupporter;
+    protected Supporter            serverSupporter;
 
     /** 选择器 */
     protected Selector                   selector;
@@ -45,7 +45,7 @@ public class SocketHandler {
      * 创建Socket处理器
      * @param serverSupporter 服务器支持者
      */
-    public SocketHandler(ServerSupporter serverSupporter) {
+    public SocketHandler(Supporter serverSupporter) {
         this.serverSupporter = serverSupporter;
     }
 
