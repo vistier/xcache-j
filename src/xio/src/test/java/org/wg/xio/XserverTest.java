@@ -17,8 +17,8 @@ public class XserverTest {
 
     public static void main(String[] args) {
         Config config = new Config();
-        config.setPort(1234);
         config.setSocketHandlerCount(2);
+        config.setSync(true);
 
         TestCommandFactory defaultCommandFactory = new TestCommandFactory();
         CommandMessageHandler commandMessageHandler = new CommandMessageHandler();
@@ -34,8 +34,8 @@ public class XserverTest {
         // supporter.setMessageHandler(simpleTelnet);
         supporter.setExecutor(executor);
 
-        Xserver xio = new Xserver(supporter);
-        xio.start();
+        Xserver xserver = new Xserver(supporter);
+        xserver.start();
     }
 
 }

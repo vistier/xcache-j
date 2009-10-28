@@ -22,7 +22,7 @@ public class Context {
     /** 主机地址 */
     private String            hostAddress;
 
-    /** 服务器支持者 */
+    /** 支持者 */
     private Supporter         supporter;
 
     /** Socket处理器 */
@@ -182,16 +182,16 @@ public class Context {
     }
 
     /**
-     * 获取服务器支持者
-     * @return 服务器支持者
+     * 获取支持者
+     * @return 支持者
      */
     public Supporter getSupporter() {
         return supporter;
     }
 
     /**
-     * 设置服务器支持者
-     * @param supporter 服务器支持者
+     * 设置支持者
+     * @param supporter 支持者
      */
     public void setSupporter(Supporter supporter) {
         this.supporter = supporter;
