@@ -6,6 +6,8 @@ import java.nio.channels.SocketChannel;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.wg.xio.config.Supporter;
+import org.wg.xio.context.Context;
 
 /**
  * X连接器
@@ -18,6 +20,9 @@ public class Xconnector {
     /** log */
     private static final Log log = LogFactory.getLog(Xconnector.class);
 
+    /** 支持者 */
+    protected Supporter      supporter;
+
     /** socket通道 */
     protected SocketChannel  socketChannel;
 
@@ -27,6 +32,9 @@ public class Xconnector {
     /** 端口 */
     protected int            port;
 
+    /** Socket处理器 */
+    protected SocketHandler  socketHandler;
+
     /** 是否已经连接 */
     protected boolean        connected;
 
@@ -35,12 +43,13 @@ public class Xconnector {
 
     /**
      * 创建X连接器
-     * @param connectorConfig 连接器配置
+     * @param supporter 支持者
      */
-    public Xconnector() {
-        // this.connectorConfig = connectorConfig;
-        // this.ip = connectorConfig.getServerIp();
-        // this.port = connectorConfig.getServerPort();
+    public Xconnector(Supporter supporter) {
+        this.supporter = supporter;
+        this.ip = supporter.getConfig().getIp();
+        this.port = supporter.getConfig().getPort();
+        this.socketHandler = new SocketHandler(supporter);
     }
 
     /**
@@ -48,14 +57,12 @@ public class Xconnector {
      * @return 连接是否成功
      */
     public boolean connect() {
-        SocketChannel socketChannel = null;
-
         try {
             // --连接服务器
-            socketChannel = SocketChannel.open();
+            this.socketChannel = SocketChannel.open();
             InetSocketAddress address = new InetSocketAddress(this.ip, this.port);
-            socketChannel.connect(address);
-            socketChannel.configureBlocking(false);
+            this.socketChannel.connect(address);   
+            this.socketHandler.bind(this.socketChannel);
         } catch (Exception e) {
             log.error("连接服务器异常！host=" + this.ip + ":" + this.port, e);
 
@@ -84,6 +91,10 @@ public class Xconnector {
      * @return 响应消息
      */
     public ByteBuffer send(ByteBuffer request) {
+        Context context = this.socketHandler.getContext(this.socketChannel);
+        
+        context.write(request);
+        
         ByteBuffer response = null;
 
         return response;

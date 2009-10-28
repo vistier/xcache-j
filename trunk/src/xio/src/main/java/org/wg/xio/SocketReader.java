@@ -52,10 +52,10 @@ public class SocketReader implements Runnable {
             while ((readLength = this.socketChannel.read(message)) > 0) {
                 message.flip();
 
-                this.context.receive(message);
-
                 if (this.messageHandler != null) {
-                    this.messageHandler.handle(context);
+                    this.context.receive(message);
+
+                    this.messageHandler.handle(this.context);
                 }
 
                 message.clear();

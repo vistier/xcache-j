@@ -13,7 +13,7 @@ public class Supporter {
     /** 是否运行 */
     private boolean        running = true;
 
-    /** 服务器配置 */
+    /** 配置 */
     private Config         config;
 
     /** 消息处理器 */
@@ -39,16 +39,16 @@ public class Supporter {
     }
 
     /**
-     * 获取服务器配置
-     * @return 服务器配置
+     * 获取配置
+     * @return 配置
      */
     public Config getConfig() {
         return config;
     }
 
     /**
-     * 设置服务器配置
-     * @param config 服务器配置
+     * 设置配置
+     * @param config 配置
      */
     public void setConfig(Config config) {
         this.config = config;

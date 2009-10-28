@@ -1,7 +1,7 @@
 package org.wg.xio.config;
 
 /**
- * 服务器配置
+ * 配置
  * @author enychen Oct 11, 2009
  */
 public class Config {

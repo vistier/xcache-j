@@ -21,29 +21,32 @@ import org.wg.xio.context.Context;
 public class SocketHandler {
 
     /** log */
-    private static final Log             log                    = LogFactory.getLog(SocketHandler.class);
+    private static final Log              log                    = LogFactory.getLog(SocketHandler.class);
 
-    /** 服务器支持者 */
-    protected Supporter                  supporter;
+    /** 支持者 */
+    protected Supporter                   supporter;
 
     /** 选择器 */
-    protected Selector                   selector;
+    protected Selector                    selector;
 
     /** 处理器 */
-    protected Handler                    handler;
+    protected Handler                     handler;
 
     /** socket通道队列 */
-    protected Queue<SocketChannel>       socketChannelQueue     = new ConcurrentLinkedQueue<SocketChannel>();
+    protected Queue<SocketChannel>        socketChannelQueue     = new ConcurrentLinkedQueue<SocketChannel>();
+
+    /** socket通道关联上下文 */
+    protected Map<SocketChannel, Context> socketChannelContext   = new ConcurrentHashMap<SocketChannel, Context>();
 
     /** 上下文关联的socket读取器Map */
-    protected Map<Context, SocketReader> contextSocketReaderMap = new ConcurrentHashMap<Context, SocketReader>();
+    protected Map<Context, SocketReader>  contextSocketReaderMap = new ConcurrentHashMap<Context, SocketReader>();
 
     /** 上下文关联的socket写入器Map */
-    protected Map<Context, SocketWriter> contextSocketWriterMap = new ConcurrentHashMap<Context, SocketWriter>();
+    protected Map<Context, SocketWriter>  contextSocketWriterMap = new ConcurrentHashMap<Context, SocketWriter>();
 
     /**
      * 创建Socket处理器
-     * @param supporter 服务器支持者
+     * @param supporter 支持者
      */
     public SocketHandler(Supporter supporter) {
         this.supporter = supporter;
@@ -80,6 +83,15 @@ public class SocketHandler {
     }
 
     /**
+     * 获取上下文
+     * @param socketChannel socket通道
+     * @return 上下文
+     */
+    public Context getContext(SocketChannel socketChannel) {
+        return this.socketChannelContext.get(socketChannel);
+    }
+    
+    /**
      * 处理前准备
      */
     protected void prepare() {
@@ -96,6 +108,8 @@ public class SocketHandler {
                 socketChannel.configureBlocking(false);
                 context.setKey(socketChannel.register(this.selector, SelectionKey.OP_READ, context));
 
+                this.socketChannelContext.put(socketChannel, context);
+                
                 SocketReader socketReader = new SocketReader(context);
                 this.contextSocketReaderMap.put(context, socketReader);
 
@@ -135,9 +149,14 @@ public class SocketHandler {
         // 读取时，要暂停选择读取
         context.suspendSelectRead();
 
-        // --启动上下文关联的socket读取器线程
+        // --读取
         SocketReader socketReader = this.contextSocketReaderMap.get(context);
-        this.supporter.getExecutor().execute(socketReader);
+
+        if (this.supporter.getConfig().isSync()) {
+            socketReader.run();
+        } else {
+            this.supporter.getExecutor().execute(socketReader);
+        }
     }
 
     /**
@@ -148,9 +167,14 @@ public class SocketHandler {
         // 写入时，要暂停选择写入
         context.suspendSelectWrite();
 
-        // --启动上下文关联的socket写入器线程
+        // --写入
         SocketWriter socketWriter = this.contextSocketWriterMap.get(context);
-        this.supporter.getExecutor().execute(socketWriter);
+
+        if (this.supporter.getConfig().isSync()) {
+            socketWriter.run();
+        } else {
+            this.supporter.getExecutor().execute(socketWriter);
+        }
     }
 
     /**

@@ -19,11 +19,14 @@ public class Xserver {
     /** log */
     private static final Log      log = LogFactory.getLog(Xserver.class);
 
+    /** 支持者 */
+    protected Supporter           supporter;
+
     /** 服务器socket通道 */
     protected ServerSocketChannel serverSocketChannel;
 
-    /** 服务器支持者 */
-    protected Supporter           supporter;
+    /** 端口 */
+    protected int                 port;
 
     /** Socket处理器 */
     protected SocketHandler[]     socketHandlers;
@@ -39,11 +42,11 @@ public class Xserver {
 
     /**
      * 创建Xserver
-     * @param supporter 服务器支持者
+     * @param supporter 支持者
      */
     public Xserver(Supporter supporter) {
         this.supporter = supporter;
-
+        this.port = supporter.getConfig().getPort();
         this.socketHandlerCount = supporter.getConfig().getSocketHandlerCount();
         this.socketHandlers = new SocketHandler[this.socketHandlerCount];
 
@@ -61,10 +64,6 @@ public class Xserver {
             this.acceptor = new Acceptor();
             this.supporter.getExecutor().execute(acceptor);
         }
-
-        if (log.isInfoEnabled()) {
-            log.info("xserver启动！");
-        }
     }
 
     /**
@@ -81,7 +80,7 @@ public class Xserver {
             try {
                 // --服务器启动
                 serverSocketChannel = ServerSocketChannel.open();
-                InetSocketAddress address = new InetSocketAddress(supporter.getConfig().getPort());
+                InetSocketAddress address = new InetSocketAddress(port);
                 serverSocketChannel.socket().bind(address);
             } catch (Exception e) {
                 log.error("服务器启动异常！", e);
@@ -98,6 +97,10 @@ public class Xserver {
                 return;
             }
 
+            if (log.isInfoEnabled()) {
+                log.info("xserver启动！");
+            }
+            
             while (supporter.isRunning()) {
                 try {
                     // 等待接收连接
