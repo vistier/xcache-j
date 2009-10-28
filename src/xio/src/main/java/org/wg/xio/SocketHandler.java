@@ -152,7 +152,7 @@ public class SocketHandler {
         // --读取
         SocketReader socketReader = this.contextSocketReaderMap.get(context);
 
-        if (this.supporter.getConfig().isSync()) {
+        if (this.supporter.getConfig().isSyncRead()) {
             socketReader.run();
         } else {
             this.supporter.getExecutor().execute(socketReader);
@@ -170,7 +170,7 @@ public class SocketHandler {
         // --写入
         SocketWriter socketWriter = this.contextSocketWriterMap.get(context);
 
-        if (this.supporter.getConfig().isSync()) {
+        if (this.supporter.getConfig().isSyncWrite()) {
             socketWriter.run();
         } else {
             this.supporter.getExecutor().execute(socketWriter);
@@ -182,10 +182,6 @@ public class SocketHandler {
      * @param context 上下文
      */
     public void close(Context context) {
-        if (log.isInfoEnabled()) {
-            log.info("关闭来自" + context.getHostAddress() + "的连接。");
-        }
-
         try {
             context.getKey().cancel();
             context.getSocketChannel().close();
@@ -193,7 +189,11 @@ public class SocketHandler {
             this.contextSocketReaderMap.remove(context);
             this.contextSocketWriterMap.remove(context);
         } catch (Exception e) {
-            log.error("关闭来自" + context.getHostAddress() + "的连接异常！", e);
+            log.error("关闭与" + context.getHostAddress() + "的连接异常！", e);
+        }
+        
+        if (log.isInfoEnabled()) {
+            log.info("关闭与" + context.getHostAddress() + "的连接。");
         }
     }
 
@@ -220,7 +220,7 @@ public class SocketHandler {
                         handle(selector.selectedKeys());
                     }
                 } catch (Exception e) {
-                    log.error("socket处理器异常！", e);
+                    log.error("socket处理异常！", e);
                 }
             }
         }

@@ -61,7 +61,7 @@ public class Xconnector {
             // --连接服务器
             this.socketChannel = SocketChannel.open();
             InetSocketAddress address = new InetSocketAddress(this.ip, this.port);
-            this.socketChannel.connect(address);   
+            this.socketChannel.connect(address);
             this.socketHandler.bind(this.socketChannel);
         } catch (Exception e) {
             log.error("连接服务器异常！host=" + this.ip + ":" + this.port, e);
@@ -91,11 +91,26 @@ public class Xconnector {
      * @return 响应消息
      */
     public ByteBuffer send(ByteBuffer request) {
+        // --发送
         Context context = this.socketHandler.getContext(this.socketChannel);
-        
         context.write(request);
-        
+
+        // --获取响应
         ByteBuffer response = null;
+
+        synchronized (context.getReadLock()) {
+            response = context.getReceivedMessageQueue().poll();
+
+            // --等待响应
+            if (response == null) {
+                try {
+                    context.getReadLock().wait();
+                } catch (InterruptedException e) {
+                }
+
+                response = context.getReceivedMessageQueue().poll();
+            }
+        }
 
         return response;
     }
