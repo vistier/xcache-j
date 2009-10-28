@@ -34,12 +34,18 @@ public class Context {
     /** 已经收到消息的缓冲区 */
     private ByteBuffer        receivedMessageBuffer;
 
+    /** 已经收到消息的队列 */
+    private Queue<ByteBuffer> receivedMessageQueue = new ConcurrentLinkedQueue<ByteBuffer>();
+
     /** 将要发送消息的队列 */
-    private Queue<ByteBuffer> sendingMessageQueue = new ConcurrentLinkedQueue<ByteBuffer>();
+    private Queue<ByteBuffer> sendingMessageQueue  = new ConcurrentLinkedQueue<ByteBuffer>();
 
     /** 是否正在写入 */
     private boolean           writing;
 
+    /** 读取锁 */
+    private Object            readLock             = new Object();
+    
     /**
      * 接收消息
      * @param message 消息
@@ -246,11 +252,27 @@ public class Context {
     }
 
     /**
+     * 获取已经收到消息的队列
+     * @return 已经收到消息的队列
+     */
+    public Queue<ByteBuffer> getReceivedMessageQueue() {
+        return receivedMessageQueue;
+    }
+
+    /**
      * 获取将要发送消息的队列
      * @return 将要发送消息的队列
      */
     public Queue<ByteBuffer> getSendingMessageQueue() {
         return sendingMessageQueue;
+    }
+
+    /**
+     * 获取读取锁
+     * @return 读取锁
+     */
+    public Object getReadLock() {
+        return readLock;
     }
 
 }

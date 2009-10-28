@@ -2,6 +2,9 @@ package org.wg.xio.command;
 
 import java.nio.ByteBuffer;
 
+import org.wg.xio.ex.command.CommandMessage;
+import org.wg.xio.util.XioConst;
+
 /**
  * 测试请求
  * @author enychen Oct 19, 2009
@@ -32,7 +35,7 @@ public class TestRequest extends CommandMessage {
     @Override
     public ByteBuffer encode() {
         byte[] testBytes = this.test.getBytes();
-        this.length = HEADER_LENGTH + testBytes.length;
+        this.length = XioConst.COMMAND_HEADER_LENGTH + testBytes.length;
 
         ByteBuffer message = ByteBuffer.allocate(this.length);
         message.putInt(this.length);

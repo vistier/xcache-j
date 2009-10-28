@@ -4,10 +4,10 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import org.wg.xio.Xserver;
-import org.wg.xio.command.CommandMessageHandler;
 import org.wg.xio.command.TestCommandFactory;
 import org.wg.xio.config.Config;
 import org.wg.xio.config.Supporter;
+import org.wg.xio.ex.command.CommandMessageHandler;
 
 /**
  * xserver测试
@@ -17,21 +17,20 @@ public class XserverTest {
 
     public static void main(String[] args) {
         Config config = new Config();
-        config.setSocketHandlerCount(2);
-        config.setSync(true);
+        config.setSocketHandlerCount(10);
 
         TestCommandFactory defaultCommandFactory = new TestCommandFactory();
         CommandMessageHandler commandMessageHandler = new CommandMessageHandler();
         commandMessageHandler.setCommandFactory(defaultCommandFactory);
 
-        // SimpleTelnet simpleTelnet = new SimpleTelnet();
+        //SimpleTelnet simpleTelnet = new SimpleTelnet();
 
         Executor executor = Executors.newCachedThreadPool();
 
         Supporter supporter = new Supporter();
         supporter.setConfig(config);
         supporter.setMessageHandler(commandMessageHandler);
-        // supporter.setMessageHandler(simpleTelnet);
+        //supporter.setMessageHandler(simpleTelnet);
         supporter.setExecutor(executor);
 
         Xserver xserver = new Xserver(supporter);
