@@ -20,7 +20,7 @@ public class XconnectTest {
         Config config = new Config();
 
         LengthMessageHandler lengthMessageHandler = new LengthMessageHandler();
-        
+
         Executor executor = Executors.newCachedThreadPool();
 
         Supporter supporter = new Supporter();
@@ -36,11 +36,11 @@ public class XconnectTest {
             test.setId((short) (100 + i));
             test.setCommandId((short) (1000 + i));
             test.setTest("123哈哈！abc第一次测试！");
-            
+
             ByteBuffer message = xconnector.send(test);
             LengthMessage lengthMessage = new LengthMessage();
             lengthMessage.decode(message);
-            
+
             byte[] testBytes = new byte[lengthMessage.getBody().remaining()];
             lengthMessage.getBody().get(testBytes);
             System.out.println(new String(testBytes));

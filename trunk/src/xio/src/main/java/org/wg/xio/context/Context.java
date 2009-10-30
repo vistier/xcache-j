@@ -41,11 +41,11 @@ public class Context {
     private Queue<ByteBuffer> sendingMessageQueue  = new ConcurrentLinkedQueue<ByteBuffer>();
 
     /** 是否正在写入 */
-    private boolean           writing;
+    private volatile boolean  writing;
 
     /** 读取锁 */
     private Object            readLock             = new Object();
-    
+
     /**
      * 接收消息
      * @param message 消息
