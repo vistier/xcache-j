@@ -24,13 +24,13 @@ public class LengthMessageHandler implements MessageHandler {
 
             if (message == null) {
                 break;
-            } else {
-                synchronized (context.getReadLock()) {
-                    // --放入队列，并通知可以读取了
-                    context.getReceivedMessageQueue().add(message);
+            }
+            
+            synchronized (context.getReadLock()) {
+                // --放入队列，并通知可以读取了
+                context.getReceivedMessageQueue().add(message);
 
-                    context.getReadLock().notify();
-                }
+                context.getReadLock().notify();
             }
         }
     }
