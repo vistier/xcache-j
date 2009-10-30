@@ -11,16 +11,16 @@ import org.wg.xio.MessageHandler;
 public class Supporter {
 
     /** 是否运行 */
-    private boolean        running = true;
+    private volatile boolean running = true;
 
     /** 配置 */
-    private Config         config;
+    private Config           config;
 
     /** 消息处理器 */
-    private MessageHandler messageHandler;
+    private MessageHandler   messageHandler;
 
     /** 多线程执行器 */
-    private Executor       executor;
+    private Executor         executor;
 
     /**
      * 获取是否运行

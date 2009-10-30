@@ -35,12 +35,6 @@ public class Xconnector {
     /** Socket处理器 */
     protected SocketHandler  socketHandler;
 
-    /** 是否已经连接 */
-    protected boolean        connected;
-
-    /** 是否在使用 */
-    protected boolean        used;
-
     /**
      * 创建X连接器
      * @param supporter 支持者
@@ -122,30 +116,6 @@ public class Xconnector {
      */
     public ByteBuffer send(Message request) {
         return this.send(request.encode());
-    }
-
-    /**
-     * 获取是否已经连接
-     * @return 是否已经连接
-     */
-    public boolean isConnected() {
-        return connected;
-    }
-
-    /**
-     * 获取是否在使用
-     * @return 是否在使用
-     */
-    public boolean isUsed() {
-        return used;
-    }
-
-    /**
-     * 获取是否可用
-     * @return 是否可用
-     */
-    public boolean isAvailable() {
-        return this.connected && !this.used;
     }
 
 }

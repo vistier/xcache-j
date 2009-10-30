@@ -186,6 +186,7 @@ public class SocketHandler {
             context.getKey().cancel();
             context.getSocketChannel().close();
 
+            this.socketChannelContext.remove(context.getSocketChannel());
             this.contextSocketReaderMap.remove(context);
             this.contextSocketWriterMap.remove(context);
         } catch (Exception e) {
