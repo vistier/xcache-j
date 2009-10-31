@@ -2,14 +2,14 @@ package org.wg.xio.command;
 
 import java.nio.ByteBuffer;
 
-import org.wg.xio.ex.command.CommandMessage;
+import org.wg.xio.ex.command.CommandRequest;
 import org.wg.xio.util.XioConst;
 
 /**
  * 测试请求
  * @author enychen Oct 19, 2009
  */
-public class TestRequest extends CommandMessage {
+public class TestRequest extends CommandRequest {
 
     /** 测试字符 */
     private String test;
@@ -22,25 +22,25 @@ public class TestRequest extends CommandMessage {
 
     /**
      * 创建测试请求
-     * @param commandMessage 命令消息
+     * @param commandRequest 命令消息
      */
-    public TestRequest(CommandMessage commandMessage) {
-        this.copy(commandMessage);
+    public TestRequest(CommandRequest commandRequest) {
+        this.copy(commandRequest);
     }
 
     /*
      * (non-Javadoc)
-     * @see org.wg.xio.command.CommandMessage#encode()
+     * @see org.wg.xio.command.CommandRequest#encode()
      */
     @Override
     public ByteBuffer encode() {
         byte[] testBytes = this.test.getBytes();
-        this.length = XioConst.COMMAND_HEADER_LENGTH + testBytes.length;
+        this.length = XioConst.COMMAND_REQUEST_HEADER_LENGTH + testBytes.length;
 
         ByteBuffer message = ByteBuffer.allocate(this.length);
         message.putInt(this.length);
-        message.putShort(this.id);
-        message.putShort(this.commandId);
+        message.putInt(this.id);
+        message.putInt(this.commandId);
         message.put(testBytes);
         message.flip();
 
@@ -49,7 +49,7 @@ public class TestRequest extends CommandMessage {
 
     /*
      * (non-Javadoc)
-     * @see org.wg.xio.command.CommandMessage#decode(java.nio.ByteBuffer)
+     * @see org.wg.xio.command.CommandRequest#decode(java.nio.ByteBuffer)
      */
     @Override
     public void decode(ByteBuffer message) {

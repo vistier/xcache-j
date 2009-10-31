@@ -7,18 +7,21 @@ package org.wg.xio.util;
 public class XioConst {
 
     /** 默认IP地址 */
-    public static final String DEFAULT_IP            = "127.0.0.1";
+    public static final String DEFAULT_IP                     = "127.0.0.1";
 
     /** 默认端口 */
-    public static final int    DEFAULT_PORT          = 1234;
+    public static final int    DEFAULT_PORT                   = 1234;
 
     /** 默认缓冲区大小 */
-    public static final int    DEFAULT_BUFFER_SIZE   = 1024;
+    public static final int    DEFAULT_BUFFER_SIZE            = 1024;
 
-    /** 命令消息头长度 */
-    public static final int    COMMAND_HEADER_LENGTH = 8;
+    /** 命令请求消息头长度 */
+    public static final int    COMMAND_REQUEST_HEADER_LENGTH  = 12;
+
+    /** 命令响应消息长度 */
+    public static final int    COMMAND_RESPONSE_HEADER_LENGTH = 8;
 
     /** 消息长度的长度 */
-    public static final int    LENGTH_LENGTH         = 4;
+    public static final int    LENGTH_LENGTH                  = 4;
 
 }

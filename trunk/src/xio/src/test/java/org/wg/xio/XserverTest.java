@@ -7,7 +7,7 @@ import org.wg.xio.Xserver;
 import org.wg.xio.command.TestCommandFactory;
 import org.wg.xio.config.Config;
 import org.wg.xio.config.Supporter;
-import org.wg.xio.ex.command.CommandMessageHandler;
+import org.wg.xio.ex.command.CommandHandler;
 
 /**
  * xserver测试
@@ -19,9 +19,9 @@ public class XserverTest {
         Config config = new Config();
         config.setSocketHandlerCount(10);
 
-        TestCommandFactory defaultCommandFactory = new TestCommandFactory();
-        CommandMessageHandler commandMessageHandler = new CommandMessageHandler();
-        commandMessageHandler.setCommandFactory(defaultCommandFactory);
+        TestCommandFactory testCommandFactory = new TestCommandFactory();
+        CommandHandler commandHandler = new CommandHandler();
+        commandHandler.setCommandFactory(testCommandFactory);
 
         //SimpleTelnet simpleTelnet = new SimpleTelnet();
 
@@ -29,7 +29,7 @@ public class XserverTest {
 
         Supporter supporter = new Supporter();
         supporter.setConfig(config);
-        supporter.setMessageHandler(commandMessageHandler);
+        supporter.setMessageHandler(commandHandler);
         //supporter.setMessageHandler(simpleTelnet);
         supporter.setExecutor(executor);
 
