@@ -10,7 +10,7 @@ public interface Command {
 
     /**
      * 执行命令
-     * @param commandRequest 命令消息
+     * @param commandRequest 命令请求
      * @param context 上下文
      */
     void execute(CommandRequest commandRequest, Context context);
