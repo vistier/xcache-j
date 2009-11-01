@@ -100,15 +100,14 @@ public class Xserver {
             if (log.isInfoEnabled()) {
                 log.info("xserver启动！");
             }
-            
+
             while (supporter.isRunning()) {
                 try {
                     // 等待接收连接
                     SocketChannel socketChannel = serverSocketChannel.accept();
 
                     if (log.isInfoEnabled()) {
-                        log.info("接收到来自" + socketChannel.socket().getRemoteSocketAddress()
-                                 + "的连接。");
+                        log.info("接收到来自" + socketChannel.socket().getRemoteSocketAddress() + "的连接。");
                     }
 
                     // 对socket负载均衡处理

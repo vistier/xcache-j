@@ -129,11 +129,11 @@ public class SocketHandler {
         for (SelectionKey key : keys) {
             Context context = (Context) key.attachment();
 
-            if (key.isReadable()) {
+            if (key.isValid() && key.isReadable()) {
                 this.read(context);
             }
 
-            if (key.isWritable()) {
+            if (key.isValid() && key.isWritable()) {
                 this.write(context);
             }
         }
