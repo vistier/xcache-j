@@ -80,25 +80,42 @@ public class Xconnector {
     }
 
     /**
-     * 发送
+     * 发送请求
      * @param request 请求消息
-     * @return 响应消息
+     * @return 上下文
      */
-    public ByteBuffer send(ByteBuffer request) {
-        // --发送
+    public Context send(ByteBuffer request) {
         Context context = this.socketHandler.getContext(this.socketChannel);
         context.write(request);
 
-        // --获取响应
+        return context;
+    }
+
+    /**
+     * 发送请求
+     * @param request 请求消息
+     * @return 上下文
+     */
+    public Context send(Message request) {
+        return this.send(request.encode());
+    }
+
+    /**
+     * 读取响应
+     * @param timeOut 超时
+     * @return 响应消息
+     */
+    public ByteBuffer read(int timeOut) {
+        Context context = this.socketHandler.getContext(this.socketChannel);
         ByteBuffer response = null;
 
         synchronized (context.getReadLock()) {
             response = context.getReceivedMessageQueue().poll();
 
-            // --等待响应
+            // --队列中没有响应时，等待响应
             if (response == null) {
                 try {
-                    context.getReadLock().wait();
+                    context.getReadLock().wait(timeOut);
                 } catch (InterruptedException e) {
                 }
 
@@ -107,15 +124,6 @@ public class Xconnector {
         }
 
         return response;
-    }
-
-    /**
-     * 发送
-     * @param request 请求消息
-     * @return 响应消息
-     */
-    public ByteBuffer send(Message request) {
-        return this.send(request.encode());
     }
 
 }

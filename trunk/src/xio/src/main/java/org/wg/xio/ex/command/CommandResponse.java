@@ -6,7 +6,7 @@ import org.wg.xio.Message;
 import org.wg.xio.util.XioConst;
 
 /**
- * 命令响应消息
+ * 命令响应
  * @author enychen Oct 31, 2009
  */
 public class CommandResponse extends Message {
@@ -65,6 +65,15 @@ public class CommandResponse extends Message {
     public void setId(int id) {
         this.id = id;
     }
-    
-    
+
+    /**
+     * 拷贝命令响应
+     * @param commandResponse 命令响应
+     */
+    public void copy(CommandResponse commandResponse) {
+        this.length = commandResponse.length;
+        this.id = commandResponse.id;
+        this.message = commandResponse.message;
+    }
+
 }

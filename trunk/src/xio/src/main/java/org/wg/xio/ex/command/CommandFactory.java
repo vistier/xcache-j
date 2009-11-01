@@ -8,7 +8,7 @@ public interface CommandFactory {
 
     /**
      * 获取命令
-     * @param commandRequest 命令消息
+     * @param commandRequest 命令请求
      * @return 命令
      */
     Command getCommand(CommandRequest commandRequest);

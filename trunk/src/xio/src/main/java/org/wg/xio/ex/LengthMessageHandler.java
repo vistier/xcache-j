@@ -25,8 +25,10 @@ public class LengthMessageHandler implements MessageHandler {
             if (message == null) {
                 break;
             }
-            
+
             synchronized (context.getReadLock()) {
+                // context.getReceivedMessageQueue().clear();
+
                 // --放入队列，并通知可以读取了
                 context.getReceivedMessageQueue().add(message);
 

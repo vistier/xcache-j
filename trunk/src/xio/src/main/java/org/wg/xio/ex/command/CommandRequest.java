@@ -6,7 +6,7 @@ import org.wg.xio.Message;
 import org.wg.xio.util.XioConst;
 
 /**
- * 命令请求消息
+ * 命令请求
  * @author enychen Oct 11, 2009
  */
 public class CommandRequest extends Message {
@@ -88,8 +88,8 @@ public class CommandRequest extends Message {
     }
 
     /**
-     * 拷贝命令请求消息
-     * @param commandRequest 命令请求消息
+     * 拷贝命令请求
+     * @param commandRequest 命令请求
      */
     public void copy(CommandRequest commandRequest) {
         this.length = commandRequest.length;

@@ -35,7 +35,7 @@ public class SocketHandler {
     /** socket通道队列 */
     protected Queue<SocketChannel>        socketChannelQueue     = new ConcurrentLinkedQueue<SocketChannel>();
 
-    /** socket通道关联上下文 */
+    /** socket通道关联的上下文 */
     protected Map<SocketChannel, Context> socketChannelContext   = new ConcurrentHashMap<SocketChannel, Context>();
 
     /** 上下文关联的socket读取器Map */
