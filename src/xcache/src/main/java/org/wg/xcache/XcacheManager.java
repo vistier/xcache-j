@@ -24,7 +24,7 @@ public class XcacheManager {
     private static final XcacheManager xcacheManager = new XcacheManager();
 
     /** N套缓存Map */
-    private Map<String, CacheSuite>    cacheSuiteMap = new ConcurrentHashMap<String, CacheSuite>();
+    protected Map<String, CacheSuite>    cacheSuiteMap = new ConcurrentHashMap<String, CacheSuite>();
 
     /**
      * 创建Xcache缓存管理器
@@ -70,7 +70,7 @@ public class XcacheManager {
      * 3、初始化删除过期缓存元素任务<br>
      * 4、初始化记录缓存统计信息任务
      */
-    private void init() {
+    protected void init() {
         if (log.isInfoEnabled()) {
             log.info(MessageFormat.format(XcacheConst.LOG_REGION, "Xcache正在初始化"));
         }
