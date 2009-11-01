@@ -7,6 +7,7 @@ import org.wg.xio.command.TestRequest;
 import org.wg.xio.command.TestResponse;
 import org.wg.xio.config.Config;
 import org.wg.xio.config.Supporter;
+import org.wg.xio.context.Context;
 import org.wg.xio.ex.LengthMessageHandler;
 import org.wg.xio.ex.command.CommandConnector;
 import org.wg.xio.ex.command.CommandResponse;
@@ -19,6 +20,7 @@ public class XconnectTest {
 
     public static void main(String[] args) throws Exception {
         Config config = new Config();
+        config.setSocketHandlerCount(2);
 
         LengthMessageHandler lengthMessageHandler = new LengthMessageHandler();
 
@@ -33,6 +35,10 @@ public class XconnectTest {
         // xconnector.connect();
 
         CommandConnector commandConnector = new CommandConnector(supporter);
+        commandConnector.connect();
+        commandConnector.connect();
+        commandConnector.connect();
+        commandConnector.connect();
         commandConnector.connect();
 
         for (int i = 0; i < 100000000; i++) {
@@ -50,8 +56,8 @@ public class XconnectTest {
             // lengthMessage.getBody().get(testBytes);
             // System.out.println(new String(testBytes));
 
-            commandConnector.send(test);
-            CommandResponse commandResponse = commandConnector.read(test.getId(), 1000);
+            Context context = commandConnector.send(test);
+            CommandResponse commandResponse = commandConnector.read(context, test.getId(), 1000);
             TestResponse testResponse = new TestResponse(commandResponse);
             testResponse.decode(commandResponse.getMessage());
             System.out.println(testResponse.getTest());

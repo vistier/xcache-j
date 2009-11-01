@@ -19,11 +19,11 @@ public class Xserver {
     /** log */
     private static final Log      log = LogFactory.getLog(Xserver.class);
 
-    /** 支持者 */
-    protected Supporter           supporter;
-
     /** 服务器socket通道 */
     protected ServerSocketChannel serverSocketChannel;
+
+    /** 支持者 */
+    protected Supporter           supporter;
 
     /** 端口 */
     protected int                 port;
