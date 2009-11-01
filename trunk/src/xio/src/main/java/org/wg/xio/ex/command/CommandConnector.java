@@ -24,12 +24,12 @@ public class CommandConnector extends Xconnector {
 
     /**
      * 读取响应
+     * @param context 上下文
      * @param requestId 请求ID
      * @param timeOut 超时
      * @return 命令响应
      */
-    public CommandResponse read(int requestId, int timeOut) {
-        Context context = this.socketHandler.getContext(this.socketChannel);
+    public CommandResponse read(Context context, int requestId, int timeOut) {
         ByteBuffer response = null;
         CommandResponse commandResponse = null;
         CommandResponse tempResponse = new CommandResponse();
@@ -73,7 +73,7 @@ public class CommandConnector extends Xconnector {
      */
     @Override
     @Deprecated
-    public ByteBuffer read(int timeOut) {
+    public ByteBuffer read(Context context, int timeOut) {
         throw new UnsupportedOperationException();
     }
 
