@@ -72,6 +72,7 @@ public class CommandConnector extends Xconnector {
      * @see org.wg.xio.Xconnector#read(int)
      */
     @Override
+    @Deprecated
     public ByteBuffer read(int timeOut) {
         throw new UnsupportedOperationException();
     }
