@@ -26,6 +26,7 @@ public class TestRequest extends CommandRequest {
      */
     public TestRequest(CommandRequest commandRequest) {
         this.copy(commandRequest);
+        this.decode(commandRequest.getMessage());
     }
 
     /*
