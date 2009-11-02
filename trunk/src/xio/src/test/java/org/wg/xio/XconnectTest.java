@@ -37,9 +37,9 @@ public class XconnectTest {
         CommandConnector commandConnector = new CommandConnector(supporter);
         commandConnector.connect();
         commandConnector.connect();
-        // commandConnector.connect();
-        // commandConnector.connect();
-        // commandConnector.connect();
+        commandConnector.connect();
+        commandConnector.connect();
+        commandConnector.connect();
 
         for (int i = 0; i < 100000000; i++) {
             TestRequest test = new TestRequest();
@@ -59,7 +59,7 @@ public class XconnectTest {
             Context context = commandConnector.send(test);
             CommandResponse commandResponse = commandConnector.read(context, test.getId(), 1000);
             TestResponse testResponse = new TestResponse(commandResponse);
-            testResponse.decode(commandResponse.getMessage());
+            //testResponse.decode(commandResponse.getMessage());
             System.out.println(testResponse.getTest());
 
             Thread.sleep(100);

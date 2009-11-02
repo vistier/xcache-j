@@ -26,6 +26,7 @@ public class TestResponse extends CommandResponse {
      */
     public TestResponse(CommandResponse commandResponse) {
         this.copy(commandResponse);
+        this.decode(commandResponse.getMessage());
     }
     
     /*
