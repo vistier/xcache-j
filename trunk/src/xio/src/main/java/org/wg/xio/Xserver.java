@@ -98,7 +98,7 @@ public class Xserver {
             }
 
             if (log.isInfoEnabled()) {
-                log.info("xserver启动！");
+                log.info("Xserver启动！");
             }
 
             while (supporter.isRunning()) {

@@ -10,7 +10,7 @@ import org.wg.xio.config.Supporter;
 import org.wg.xio.ex.command.CommandHandler;
 
 /**
- * xserver测试
+ * Xserver测试
  * @author enychen Oct 12, 2009
  */
 public class XserverTest {
