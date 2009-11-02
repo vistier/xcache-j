@@ -22,6 +22,9 @@ public class Xconnector {
     /** log */
     private static final Log      log               = LogFactory.getLog(Xconnector.class);
 
+    /** 操作最大次数 */
+    private static int            OP_MAX            = Integer.MAX_VALUE - 10000;
+
     /** socket通道池，相当于连接池 */
     protected List<SocketChannel> socketChannelPool = new CopyOnWriteArrayList<SocketChannel>();
 
@@ -111,21 +114,22 @@ public class Xconnector {
      */
     protected Context getOneContext() {
         Context context = null;
-        
-        if (this.opTimes == Integer.MAX_VALUE) {
-            this.opTimes = Integer.MAX_VALUE % this.socketChannelCount;
+
+        if (this.opTimes > OP_MAX) {
+            this.opTimes = OP_MAX % this.socketChannelCount;
         }
 
+        // --轮询socket通道，找到关联的上下文
         SocketChannel socketChannel = this.socketChannelPool.get(this.opTimes++ % this.socketChannelCount);
-        
+
         for (SocketHandler socketHandler : this.socketHandlers) {
             context = socketHandler.getContext(socketChannel);
-            
+
             if (context != null) {
                 break;
             }
         }
-        
+
         return context;
     }
 
