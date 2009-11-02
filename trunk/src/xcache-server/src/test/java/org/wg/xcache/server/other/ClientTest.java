@@ -57,7 +57,7 @@ public class ClientTest {
 
             commandConnector.send(putObjectRequest);
 
-            Thread.sleep(10);
+            Thread.sleep(100);
         }
     }
     

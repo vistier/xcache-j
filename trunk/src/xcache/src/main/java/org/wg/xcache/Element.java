@@ -1,37 +1,42 @@
 package org.wg.xcache;
 
+import java.io.Serializable;
+
 /**
  * 缓存元素
  * @author enychen Jul 19, 2009
  */
-public class Element {
+public class Element implements Serializable {
+
+    /** serialVersionUID */
+    private static final long serialVersionUID = 6918572989165480348L;
 
     /** 缓存键 */
-    private Object key;
+    private Object            key;
 
     /** 缓存对象 */
-    private Object object;
+    private Object            object;
 
     /** 创建时间，单位毫秒 */
-    private long   createdTime;
+    private long              createdTime;
 
     /** 最后访问时间，单位毫秒 */
-    private long   lastAccessTime;
+    private long              lastAccessTime;
 
     /** 最后更新时间，单位毫秒 */
-    private long   lastUpdateTime;
+    private long              lastUpdateTime;
 
     /** 访问次数 */
-    private long   accessTimes;
+    private long              accessTimes;
 
     /** 更新次数 */
-    private long   updateTimes;
+    private long              updateTimes;
 
     /** 生存时间，单位毫秒 */
-    private long   liveTime;
+    private long              liveTime;
 
     /** 空闲时间，单位毫秒 */
-    private long   idleTime;
+    private long              idleTime;
 
     /**
      * 创建缓存元素
@@ -200,5 +205,5 @@ public class Element {
     public String toString() {
         return "key=" + this.key;
     }
-    
+
 }
