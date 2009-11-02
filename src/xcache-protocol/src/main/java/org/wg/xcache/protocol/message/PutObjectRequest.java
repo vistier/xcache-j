@@ -11,35 +11,35 @@ import org.wg.xio.ex.command.CommandRequest;
 import org.wg.xio.util.XioConst;
 
 /**
- * °Ñ¶ÔÏó·ÅÈë»º´æÇëÇó
+ * æŠŠå¯¹è±¡æ”¾å…¥ç¼“å­˜è¯·æ±‚
  * @author enychen Nov 2, 2009
  */
 public class PutObjectRequest extends CommandRequest {
 
-    /** »º´æÃû */
+    /** ç¼“å­˜å */
     protected String cacheName;
 
-    /** »º´æ¼ü */
+    /** ç¼“å­˜é”® */
     protected String key;
 
-    /** »º´æ¶ÔÏó */
+    /** ç¼“å­˜å¯¹è±¡ */
     protected Object object;
 
-    /** Éú´æÊ±¼ä£¬µ¥Î»ºÁÃë */
+    /** ç”Ÿå­˜æ—¶é—´ï¼Œå•ä½æ¯«ç§’ */
     protected int    liveTime;
 
-    /** ¿ÕÏĞÊ±¼ä£¬µ¥Î»ºÁÃë */
+    /** ç©ºé—²æ—¶é—´ï¼Œå•ä½æ¯«ç§’ */
     protected int    idleTime;
 
     /**
-     * ´´½¨°Ñ¶ÔÏó·ÅÈë»º´æÇëÇó
+     * åˆ›å»ºæŠŠå¯¹è±¡æ”¾å…¥ç¼“å­˜è¯·æ±‚
      */
     public PutObjectRequest() {
     }
 
     /**
-     * ´´½¨°Ñ¶ÔÏó·ÅÈë»º´æÇëÇó
-     * @param commandRequest ÃüÁîÇëÇó
+     * åˆ›å»ºæŠŠå¯¹è±¡æ”¾å…¥ç¼“å­˜è¯·æ±‚
+     * @param commandRequest å‘½ä»¤è¯·æ±‚
      */
     public PutObjectRequest(CommandRequest commandRequest) {
         this.copy(commandRequest);
@@ -74,9 +74,8 @@ public class PutObjectRequest extends CommandRequest {
         int objectLength = objectBytes.length;
 
         this.length = XioConst.COMMAND_REQUEST_HEADER_LENGTH + XioConst.LENGTH_LENGTH
-                + cacheNameLength + XioConst.LENGTH_LENGTH + cacheNameLength
-                + XioConst.LENGTH_LENGTH + objectLength + XioConst.LENGTH_LENGTH
-                + XioConst.LENGTH_LENGTH;
+                + cacheNameLength + XioConst.LENGTH_LENGTH + keyLength + XioConst.LENGTH_LENGTH
+                + objectLength + XioConst.LENGTH_LENGTH + XioConst.LENGTH_LENGTH;
 
         ByteBuffer message = ByteBuffer.allocate(this.length);
         message.putInt(this.length);
@@ -87,6 +86,7 @@ public class PutObjectRequest extends CommandRequest {
         message.putInt(keyLength);
         message.put(keyBytes);
         message.putInt(objectLength);
+        message.put(objectBytes);
         message.putInt(this.liveTime);
         message.putInt(this.idleTime);
         message.flip();
@@ -129,80 +129,80 @@ public class PutObjectRequest extends CommandRequest {
     }
 
     /**
-     * »ñÈ¡»º´æÃû
-     * @return »º´æÃû
+     * è·å–ç¼“å­˜å
+     * @return ç¼“å­˜å
      */
     public String getCacheName() {
         return cacheName;
     }
 
     /**
-     * ÉèÖÃ»º´æÃû
-     * @param cacheName »º´æÃû
+     * è®¾ç½®ç¼“å­˜å
+     * @param cacheName ç¼“å­˜å
      */
     public void setCacheName(String cacheName) {
         this.cacheName = cacheName;
     }
 
     /**
-     * »ñÈ¡»º´æ¼ü
-     * @return »º´æ¼ü
+     * è·å–ç¼“å­˜é”®
+     * @return ç¼“å­˜é”®
      */
     public String getKey() {
         return key;
     }
 
     /**
-     * ÉèÖÃ»º´æ¼ü
-     * @param key »º´æ¼ü
+     * è®¾ç½®ç¼“å­˜é”®
+     * @param key ç¼“å­˜é”®
      */
     public void setKey(String key) {
         this.key = key;
     }
 
     /**
-     * »ñÈ¡»º´æ¶ÔÏó
-     * @return »º´æ¶ÔÏó
+     * è·å–ç¼“å­˜å¯¹è±¡
+     * @return ç¼“å­˜å¯¹è±¡
      */
     public Object getObject() {
         return object;
     }
 
     /**
-     * ÉèÖÃ»º´æ¶ÔÏó
-     * @param object »º´æ¶ÔÏó
+     * è®¾ç½®ç¼“å­˜å¯¹è±¡
+     * @param object ç¼“å­˜å¯¹è±¡
      */
     public void setObject(Object object) {
         this.object = object;
     }
 
     /**
-     * »ñÈ¡Éú´æÊ±¼ä£¬µ¥Î»ºÁÃë
-     * @return Éú´æÊ±¼ä£¬µ¥Î»ºÁÃë
+     * è·å–ç”Ÿå­˜æ—¶é—´ï¼Œå•ä½æ¯«ç§’
+     * @return ç”Ÿå­˜æ—¶é—´ï¼Œå•ä½æ¯«ç§’
      */
     public int getLiveTime() {
         return liveTime;
     }
 
     /**
-     * ÉèÖÃÉú´æÊ±¼ä£¬µ¥Î»ºÁÃë
-     * @param liveTime Éú´æÊ±¼ä£¬µ¥Î»ºÁÃë
+     * è®¾ç½®ç”Ÿå­˜æ—¶é—´ï¼Œå•ä½æ¯«ç§’
+     * @param liveTime ç”Ÿå­˜æ—¶é—´ï¼Œå•ä½æ¯«ç§’
      */
     public void setLiveTime(int liveTime) {
         this.liveTime = liveTime;
     }
 
     /**
-     * ¿ÕÏĞÊ±¼ä£¬µ¥Î»ºÁÃë
-     * @return ¿ÕÏĞÊ±¼ä£¬µ¥Î»ºÁÃë
+     * ç©ºé—²æ—¶é—´ï¼Œå•ä½æ¯«ç§’
+     * @return ç©ºé—²æ—¶é—´ï¼Œå•ä½æ¯«ç§’
      */
     public int getIdleTime() {
         return idleTime;
     }
 
     /**
-     * ÉèÖÃ¿ÕÏĞÊ±¼ä£¬µ¥Î»ºÁÃë
-     * @param idleTime ¿ÕÏĞÊ±¼ä£¬µ¥Î»ºÁÃë
+     * è®¾ç½®ç©ºé—²æ—¶é—´ï¼Œå•ä½æ¯«ç§’
+     * @param idleTime ç©ºé—²æ—¶é—´ï¼Œå•ä½æ¯«ç§’
      */
     public void setIdleTime(int idleTime) {
         this.idleTime = idleTime;

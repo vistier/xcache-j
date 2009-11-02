@@ -82,6 +82,10 @@ public final class Xcache implements Cache {
                         this.cacheStat.increaseOutTimes();
 
                         this.store.delete(outElement.getKey());
+                        
+                        if (log.isInfoEnabled()) {
+                            log.info(this.getName() + "缓存已满，删除元素" + outElement.getKey());
+                        }
                     }
 
                     // TODO outElement为null时，是否要考虑重试？
