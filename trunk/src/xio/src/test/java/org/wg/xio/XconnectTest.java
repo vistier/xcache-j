@@ -37,9 +37,9 @@ public class XconnectTest {
         CommandConnector commandConnector = new CommandConnector(supporter);
         commandConnector.connect();
         commandConnector.connect();
-        commandConnector.connect();
-        commandConnector.connect();
-        commandConnector.connect();
+        // commandConnector.connect();
+        // commandConnector.connect();
+        // commandConnector.connect();
 
         for (int i = 0; i < 100000000; i++) {
             TestRequest test = new TestRequest();
