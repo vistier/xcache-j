@@ -24,7 +24,7 @@ public class LengthMessage extends Message {
     @Override
     public ByteBuffer encode() {
         this.length = XioConst.LENGTH_LENGTH + this.body.limit();
-        
+
         ByteBuffer message = ByteBuffer.allocate(this.length);
         message.putInt(this.length);
         message.put(this.body);

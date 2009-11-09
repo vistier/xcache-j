@@ -24,7 +24,7 @@ public class CommandResponse extends Message {
     @Override
     public ByteBuffer encode() {
         ByteBuffer message = ByteBuffer.allocate(XioConst.COMMAND_RESPONSE_HEADER_LENGTH);
-        message.putInt(XioConst.LENGTH_LENGTH);
+        message.putInt(XioConst.COMMAND_RESPONSE_HEADER_LENGTH);
         message.putInt(this.id);
         message.flip();
 
