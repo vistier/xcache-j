@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 public class PutObjectRequest implements Serializable {
 
-    /** Serializable */
+    /** serialVersionUID = 568816122135566167L */
     private static final long serialVersionUID = 568816122135566167L;
 
     /** 缓存名 */

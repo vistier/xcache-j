@@ -29,8 +29,6 @@ public class PutObject implements Command {
      *      org.wg.xio.context.Context)
      */
     public void execute(CommandRequest commandRequest, Context context) {
-        // PutObjectRequest putObjectRequest = new
-        // PutObjectRequest(commandRequest);
         SerialObjectRequest serialObjectRequest = new SerialObjectRequest(commandRequest);
 
         PutObjectRequest putObjectRequest = null;

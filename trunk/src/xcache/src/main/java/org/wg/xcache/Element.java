@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 public class Element implements Serializable {
 
-    /** serialVersionUID */
+    /** serialVersionUID = 6918572989165480348L */
     private static final long serialVersionUID = 6918572989165480348L;
 
     /** 缓存键 */
