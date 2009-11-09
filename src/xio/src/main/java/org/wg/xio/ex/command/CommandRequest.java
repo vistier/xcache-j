@@ -27,7 +27,7 @@ public class CommandRequest extends Message {
     @Override
     public ByteBuffer encode() {
         ByteBuffer message = ByteBuffer.allocate(XioConst.COMMAND_REQUEST_HEADER_LENGTH);
-        message.putInt(XioConst.LENGTH_LENGTH);
+        message.putInt(XioConst.COMMAND_REQUEST_HEADER_LENGTH);
         message.putInt(this.id);
         message.putInt(this.commandId);
         message.flip();
