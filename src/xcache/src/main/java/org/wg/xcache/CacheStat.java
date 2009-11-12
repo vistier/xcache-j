@@ -1,5 +1,6 @@
 package org.wg.xcache;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -7,67 +8,70 @@ import java.util.Date;
  * 缓存统计信息
  * @author enychen Jul 30, 2009
  */
-public class CacheStat {
+public class CacheStat implements Serializable {
+
+    /** serialVersionUID = 3389601950260335783L */
+    private static final long serialVersionUID = 3389601950260335783L;
 
     /** 缓存名 */
-    private String           name;
+    private String            name;
 
     /** 创建时间，单位毫秒 */
-    private long             createdTime = System.currentTimeMillis();
+    private long              createdTime      = System.currentTimeMillis();
 
     /** 缓存元素数量 */
-    private int              amount;
+    private int               amount;
 
     /** 最后放入缓存时间，单位毫秒 */
-    private long             lastPutTime;
+    private long              lastPutTime;
 
     /** 最后删除缓存时间，单位毫秒 */
-    private long             lastDeleteTime;
+    private long              lastDeleteTime;
 
     /** 最后获取缓存时间，单位毫秒 */
-    private long             lastAccessTime;
+    private long              lastAccessTime;
 
     /** 最后清除缓存时间，单位毫秒 */
-    private long             lastClearTime;
+    private long              lastClearTime;
 
     /** 最后获取缓存统计信息时间，单位毫秒 */
-    private long             lastGetCacheStatTime;
+    private long              lastGetCacheStatTime;
 
     /** 最后删除过期缓存元素时间，单位毫秒 */
-    private long             lastDeleteExpireElementTime;
+    private long              lastDeleteExpireElementTime;
 
     /** 放入缓存次数 */
-    private long             putTimes;
+    private long              putTimes;
 
     /** 抛弃元素次数 */
-    private long             abandonTimes;
+    private long              abandonTimes;
 
     /** 缓存退出次数 */
-    private long             outTimes;
+    private long              outTimes;
 
     /** 插入缓存次数 */
-    private long             insertTimes;
+    private long              insertTimes;
 
     /** 更新缓存次数 */
-    private long             updateTimes;
+    private long              updateTimes;
 
     /** 删除缓存次数 */
-    private long             deleteTimes;
+    private long              deleteTimes;
 
     /** 获取缓存次数 */
-    private long             accessTimes;
+    private long              accessTimes;
 
     /** 清除缓存次数 */
-    private long             clearTimes;
+    private long              clearTimes;
 
     /** 获取缓存统计信息次数 */
-    private long             getCacheStatTimes;
+    private long              getCacheStatTimes;
 
     /** 删除过期缓存元素次数 */
-    private long             deleteExpireElementTimes;
+    private long              deleteExpireElementTimes;
 
     /** 时间格式，yyyy-MM-dd HH:mm:ss */
-    private SimpleDateFormat dateFormat  = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private SimpleDateFormat  dateFormat       = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     /**
      * 创建缓存统计信息
