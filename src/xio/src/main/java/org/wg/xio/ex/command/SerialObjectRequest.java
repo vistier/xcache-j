@@ -11,7 +11,7 @@ import org.wg.xio.util.XioConst;
 public class SerialObjectRequest extends CommandRequest {
 
     /** 序列化对象 */
-    protected byte[] seObject;
+    protected byte[] serialObject;
 
     /**
      * 创建可序列化对象请求
@@ -32,16 +32,16 @@ public class SerialObjectRequest extends CommandRequest {
      * 获取序列化对象
      * @return 序列化对象
      */
-    public byte[] getSeObject() {
-        return seObject;
+    public byte[] getSerialObject() {
+        return serialObject;
     }
 
     /**
      * 设置序列化对象
-     * @param seObject 序列化对象
+     * @param serialObject 序列化对象
      */
-    public void setSeObject(byte[] seObject) {
-        this.seObject = seObject;
+    public void setSerialObject(byte[] serialObject) {
+        this.serialObject = serialObject;
     }
 
     /*
@@ -50,13 +50,13 @@ public class SerialObjectRequest extends CommandRequest {
      */
     @Override
     public ByteBuffer encode() {
-        this.length = XioConst.COMMAND_REQUEST_HEADER_LENGTH + this.seObject.length;
+        this.length = XioConst.COMMAND_REQUEST_HEADER_LENGTH + this.serialObject.length;
 
         ByteBuffer message = ByteBuffer.allocate(this.length);
         message.putInt(this.length);
         message.putInt(this.id);
         message.putInt(this.commandId);
-        message.put(this.seObject);
+        message.put(this.serialObject);
         message.flip();
 
         return message;
@@ -68,8 +68,8 @@ public class SerialObjectRequest extends CommandRequest {
      */
     @Override
     public void decode(ByteBuffer message) {
-        this.seObject = new byte[message.remaining()];
-        message.get(this.seObject);
+        this.serialObject = new byte[message.remaining()];
+        message.get(this.serialObject);
     }
 
 }
