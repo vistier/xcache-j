@@ -34,7 +34,7 @@ public class PutObject implements Command {
         PutObjectRequest putObjectRequest = null;
         ByteArrayInputStream bytesIn = null;
         try {
-            bytesIn = new ByteArrayInputStream(serialObjectRequest.getSeObject());
+            bytesIn = new ByteArrayInputStream(serialObjectRequest.getSerialObject());
             ObjectInputStream objIs = new ObjectInputStream(bytesIn);
             putObjectRequest = (PutObjectRequest) objIs.readObject();
             objIs.close();
