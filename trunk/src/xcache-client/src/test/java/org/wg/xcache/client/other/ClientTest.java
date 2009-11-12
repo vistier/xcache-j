@@ -88,7 +88,7 @@ public class ClientTest {
             SerialObjectRequest serialObjectRequest = new SerialObjectRequest();
             serialObjectRequest.setId(i);
             serialObjectRequest.setCommandId(i);
-            serialObjectRequest.setSeObject(putObjectRequestBytes);
+            serialObjectRequest.setSerialObject(putObjectRequestBytes);
 
             commandConnector.send(serialObjectRequest);
 
