@@ -5,6 +5,7 @@ import org.wg.xio.context.Context;
 import org.wg.xio.ex.command.Command;
 import org.wg.xio.ex.command.CommandRequest;
 import org.wg.xio.ex.command.SerialObjectRequest;
+import org.wg.xio.ex.command.SerialObjectResponse;
 import org.wg.xio.util.ObjectSeUtil;
 
 /**
@@ -38,6 +39,23 @@ public abstract class XcacheCommand implements Command {
      * @param context 上下文
      */
     protected abstract void execute(Object request, CommandRequest commandRequest, Context context);
+
+    /**
+     * 写入响应
+     * @param response 返回响应
+     * @param commandRequest 命令响应
+     * @param context 上下文
+     */
+    protected void writeResponse(Object response, CommandRequest commandRequest, Context context) {
+        SerialObjectResponse serialObjectResponse = new SerialObjectResponse();
+        byte[] responseBytes = this.objectSeUtil.serialize(response);
+        serialObjectResponse.setId(commandRequest.getId());
+        serialObjectResponse.setSerialObject(responseBytes);
+
+        context.write(serialObjectResponse);
+    }
+
+    // -- Bean注入
 
     /**
      * 设置Xcache缓存管理器

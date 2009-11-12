@@ -28,22 +28,6 @@ public class SerialObjectRequest extends CommandRequest {
         this.decode(commandRequest.getMessage());
     }
 
-    /**
-     * 获取序列化对象
-     * @return 序列化对象
-     */
-    public byte[] getSerialObject() {
-        return serialObject;
-    }
-
-    /**
-     * 设置序列化对象
-     * @param serialObject 序列化对象
-     */
-    public void setSerialObject(byte[] serialObject) {
-        this.serialObject = serialObject;
-    }
-
     /*
      * (non-Javadoc)
      * @see org.wg.xio.ex.command.CommandRequest#encode()
@@ -70,6 +54,22 @@ public class SerialObjectRequest extends CommandRequest {
     public void decode(ByteBuffer message) {
         this.serialObject = new byte[message.remaining()];
         message.get(this.serialObject);
+    }
+
+    /**
+     * 获取序列化对象
+     * @return 序列化对象
+     */
+    public byte[] getSerialObject() {
+        return serialObject;
+    }
+
+    /**
+     * 设置序列化对象
+     * @param serialObject 序列化对象
+     */
+    public void setSerialObject(byte[] serialObject) {
+        this.serialObject = serialObject;
     }
 
 }
