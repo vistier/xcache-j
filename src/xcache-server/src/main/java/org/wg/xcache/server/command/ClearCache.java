@@ -11,14 +11,16 @@ import org.wg.xio.ex.command.CommandRequest;
  */
 public class ClearCache extends XcacheCommand {
 
-    /* (non-Javadoc)
-     * @see org.wg.xcache.server.command.XcacheCommand#execute(java.lang.Object, org.wg.xio.ex.command.CommandRequest, org.wg.xio.context.Context)
+    /*
+     * (non-Javadoc)
+     * @see org.wg.xcache.server.command.XcacheCommand#execute(java.lang.Object,
+     *      org.wg.xio.ex.command.CommandRequest, org.wg.xio.context.Context)
      */
     @Override
     protected void execute(Object request, CommandRequest commandRequest, Context context) {
         ClearCacheRequest clearCacheRequest = (ClearCacheRequest) request;
         Cache cache = this.xcacheManager.getCache(clearCacheRequest.getCacheName());
-        
+
         cache.clear();
     }
 

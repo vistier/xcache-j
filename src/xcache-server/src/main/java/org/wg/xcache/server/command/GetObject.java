@@ -22,7 +22,7 @@ public class GetObject extends XcacheCommand {
     protected void execute(Object request, CommandRequest commandRequest, Context context) {
         GetObjectRequest getObjectRequest = (GetObjectRequest) request;
         Cache cache = this.xcacheManager.getCache(getObjectRequest.getCacheName());
-        
+
         Element element = cache.get(getObjectRequest.getKey());
         GetObjectResponse getObjectResponse = new GetObjectResponse();
 
