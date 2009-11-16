@@ -1,26 +1,7 @@
-<!-- xcache-server配置示例 -->
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<!-- xcache-server配置示例 -->
 <beans>
-    <!-- Xcache配置 -->
-    <bean id="xcacheManager" class="org.wg.xcache.spring.XcacheManagerImpl" init-method="init">
-        <property name="cacheConfigs">
-            <list>
-                <ref bean="defaultCacheConfig" />
-            </list>
-        </property>
-    </bean>
-    <bean id="defaultCacheConfig" class="org.wg.xcache.config.CacheConfig">
-        <property name="name" value="default" />
-        <property name="maxAmount" value="10000" />
-        <property name="deleteExpireElementDelay" value="60000" />
-        <property name="deleteExpireElementInterval" value="60000" />
-        <property name="logCacheStatDelay" value="30000" />
-        <property name="logCacheStatInterval" value="30000" />
-        <property name="storeMedia" value="MEMORY" />
-        <property name="outPolicyType" value="FIFO" />
-    </bean>
-
     <!-- Xserver配置 -->
     <bean id="xserver" class="org.wg.xio.Xserver" init-method="start">
         <constructor-arg ref="supporter" />
@@ -55,9 +36,34 @@
             </map>
         </property>
     </bean>
-    <bean id="putObject" class="org.wg.xcache.server.command.PutObject" />
-    <bean id="deleteObject" class="org.wg.xcache.server.command.DeleteObject" />
-    <bean id="getObject" class="org.wg.xcache.server.command.GetObject" />
-    <bean id="clearCache" class="org.wg.xcache.server.command.ClearCache" />
-    <bean id="getCacheStat" class="org.wg.xcache.server.command.GetCacheStat" />
+    <bean id="command" abstract="true" class="org.wg.xcache.server.command.XcacheCommand">
+        <property name="xcacheManager" ref="xcacheManager" />
+        <property name="objectSeUtil" ref="objectSeUtil" />
+    </bean>
+    <bean id="putObject" class="org.wg.xcache.server.command.PutObject" parent="command" />
+    <bean id="deleteObject" class="org.wg.xcache.server.command.DeleteObject" parent="command" />
+    <bean id="getObject" class="org.wg.xcache.server.command.GetObject" parent="command" />
+    <bean id="clearCache" class="org.wg.xcache.server.command.ClearCache" parent="command" />
+    <bean id="getCacheStat" class="org.wg.xcache.server.command.GetCacheStat" parent="command" />
+
+    <!-- Xcache配置 -->
+    <bean id="xcacheManager" class="org.wg.xcache.spring.XcacheManagerImpl" init-method="init">
+        <property name="cacheConfigs">
+            <list>
+                <ref bean="defaultCacheConfig" />
+            </list>
+        </property>
+    </bean>
+    <bean id="defaultCacheConfig" class="org.wg.xcache.config.CacheConfig">
+        <property name="name" value="default" />
+        <property name="maxAmount" value="10000" />
+        <property name="deleteExpireElementDelay" value="60000" />
+        <property name="deleteExpireElementInterval" value="60000" />
+        <property name="logCacheStatDelay" value="30000" />
+        <property name="logCacheStatInterval" value="30000" />
+        <property name="storeMedia" value="MEMORY" />
+        <property name="outPolicyType" value="FIFO" />
+    </bean>
+
+    <bean id="objectSeUtil" class="org.wg.xio.util.HessianObjectSeUtil" />
 </beans>
