@@ -1,8 +1,7 @@
 package org.wg.xcache.server.command;
 
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.BeanFactoryAware;
+import java.util.Map;
+
 import org.wg.xio.ex.command.Command;
 import org.wg.xio.ex.command.CommandFactory;
 import org.wg.xio.ex.command.CommandRequest;
@@ -11,31 +10,27 @@ import org.wg.xio.ex.command.CommandRequest;
  * Xcahce命令工厂
  * @author enychen Nov 3, 2009
  */
-public class XcacheCommandFactory implements CommandFactory, BeanFactoryAware {
+public class XcacheCommandFactory implements CommandFactory {
 
-    /** Xcahce命令Bean的前缀 */
-    public static final String XCACHE_COMMAND_BEAN_PREFIX = "xcacheCommand_";
-
-    /** Bean工厂 */
-    private BeanFactory        beanFactory;
+    /** 命令Map，key是commandId，value是command */
+    private Map<String, Command> commandMap;
 
     /*
      * (non-Javadoc)
      * @see org.wg.xio.ex.command.CommandFactory#getCommand(org.wg.xio.ex.command.CommandRequest)
      */
     public Command getCommand(CommandRequest commandRequest) {
-        Command command = (Command) this.beanFactory.getBean(XCACHE_COMMAND_BEAN_PREFIX
-                + commandRequest.getCommandId());
-
-        return command;
+        return this.commandMap.get(String.valueOf(commandRequest.getCommandId()));
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.springframework.beans.factory.BeanFactoryAware#setBeanFactory(org.springframework.beans.factory.BeanFactory)
+    // --Bean注入
+
+    /**
+     * 设置命令Map，key是commandId，value是command
+     * @param commandMap 命令Map
      */
-    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
-        this.beanFactory = beanFactory;
+    public void setCommandMap(Map<String, Command> commandMap) {
+        this.commandMap = commandMap;
     }
 
 }
