@@ -1,0 +1,63 @@
+<!-- xcache-server配置示例 -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+    <!-- Xcache配置 -->
+    <bean id="xcacheManager" class="org.wg.xcache.spring.XcacheManagerImpl" init-method="init">
+        <property name="cacheConfigs">
+            <list>
+                <ref bean="defaultCacheConfig" />
+            </list>
+        </property>
+    </bean>
+    <bean id="defaultCacheConfig" class="org.wg.xcache.config.CacheConfig">
+        <property name="name" value="default" />
+        <property name="maxAmount" value="10000" />
+        <property name="deleteExpireElementDelay" value="60000" />
+        <property name="deleteExpireElementInterval" value="60000" />
+        <property name="logCacheStatDelay" value="30000" />
+        <property name="logCacheStatInterval" value="30000" />
+        <property name="storeMedia" value="MEMORY" />
+        <property name="outPolicyType" value="FIFO" />
+    </bean>
+
+    <!-- Xserver配置 -->
+    <bean id="xserver" class="org.wg.xio.Xserver" init-method="start">
+        <constructor-arg ref="supporter" />
+    </bean>
+    <bean id="supporter" class="org.wg.xio.config.Supporter">
+        <property name="config">
+            <bean class="org.wg.xio.config.Config">
+                <property name="port" value="1234" />
+                <property name="SocketHandlerCount" value="100" />
+                <property name="bufferSize" value="1024" />
+                <property name="syncRead" value="true" />
+                <property name="syncWrite" value="true" />
+            </bean>
+        </property>
+        <property name="messageHandler" ref="messageHandler" />
+        <property name="executor" ref="executor" />
+    </bean>
+    <bean id="messageHandler" class="org.wg.xio.ex.command.CommandHandler">
+        <property name="commandFactory" ref="commandFactory" />
+    </bean>
+    <bean id="executor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor" />
+
+    <!-- 命令配置 -->
+    <bean id="commandFactory" class="org.wg.xcache.server.command.XcacheCommandFactory">
+        <property name="commandMap">
+            <map>
+                <entry key="100001" value-ref="putObject" />
+                <entry key="100002" value-ref="deleteObject" />
+                <entry key="100003" value-ref="getObject" />
+                <entry key="100004" value-ref="clearCache" />
+                <entry key="100005" value-ref="getCacheStat" />
+            </map>
+        </property>
+    </bean>
+    <bean id="putObject" class="org.wg.xcache.server.command.PutObject" />
+    <bean id="deleteObject" class="org.wg.xcache.server.command.DeleteObject" />
+    <bean id="getObject" class="org.wg.xcache.server.command.GetObject" />
+    <bean id="clearCache" class="org.wg.xcache.server.command.ClearCache" />
+    <bean id="getCacheStat" class="org.wg.xcache.server.command.GetCacheStat" />
+</beans>
