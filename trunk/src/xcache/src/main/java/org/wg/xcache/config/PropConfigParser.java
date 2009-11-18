@@ -6,6 +6,8 @@ import java.text.MessageFormat;
 import java.util.Properties;
 
 import org.wg.xcache.XcacheException;
+import org.wg.xcache.out.OutPolicyType;
+import org.wg.xcache.store.StoreMedia;
 import org.wg.xcache.util.XcacheConst;
 
 /**
@@ -101,13 +103,34 @@ public class PropConfigParser implements ConfigParser {
         String outPolicyType = properties.getProperty(MessageFormat.format(OUT_POLICY_TYPE, name));
 
         cacheConfig.setName(name);
-        cacheConfig.setMaxAmount(maxAmount);
-        cacheConfig.setDeleteExpireElementDelay(deleteExpireElementDelay);
-        cacheConfig.setDeleteExpireElementInterval(deleteExpireElementInterval);
-        cacheConfig.setLogCacheStatDelay(logCacheStatDelay);
-        cacheConfig.setLogCacheStatInterval(logCacheStatInterval);
-        cacheConfig.setStoreMedia(storeMedia);
-        cacheConfig.setOutPolicyType(outPolicyType);
+
+        if (maxAmount != null) {
+            cacheConfig.setMaxAmount(Integer.parseInt(maxAmount));
+        }
+
+        if (deleteExpireElementDelay != null) {
+            cacheConfig.setDeleteExpireElementDelay(Long.parseLong(deleteExpireElementDelay));
+        }
+
+        if (deleteExpireElementInterval != null) {
+            cacheConfig.setDeleteExpireElementInterval(Long.parseLong(deleteExpireElementInterval));
+        }
+
+        if (logCacheStatDelay != null) {
+            cacheConfig.setLogCacheStatDelay(Long.parseLong(logCacheStatDelay));
+        }
+
+        if (logCacheStatInterval != null) {
+            cacheConfig.setLogCacheStatInterval(Long.parseLong(logCacheStatInterval));
+        }
+
+        if (storeMedia != null) {
+            cacheConfig.setStoreMedia(StoreMedia.valueOf(storeMedia));
+        }
+
+        if (outPolicyType != null) {
+            cacheConfig.setOutPolicyType(OutPolicyType.valueOf(outPolicyType));
+        }
 
         return cacheConfig;
     }

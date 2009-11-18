@@ -56,7 +56,7 @@
     </bean>
     <bean id="defaultCacheConfig" class="org.wg.xcache.config.CacheConfig">
         <property name="name" value="default" />
-        <!--property name="maxAmount" value="10000" /-->
+        <property name="maxAmount" value="10000" />
         <property name="deleteExpireElementDelay" value="60000" />
         <property name="deleteExpireElementInterval" value="60000" />
         <property name="logCacheStatDelay" value="30000" />

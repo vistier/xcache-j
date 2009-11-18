@@ -38,8 +38,7 @@ public final class Xcache implements Cache {
      */
     public Xcache(CacheConfig cacheConfig) {
         this.store = StoreFactory.getInstance().getStore(cacheConfig.getStoreMedia());
-        this.outPolicy = OutPolicyFactory.getInstance()
-                .getOutPolicy(cacheConfig.getOutpolicyType());
+        this.outPolicy = OutPolicyFactory.getInstance().getOutPolicy(cacheConfig.getOutPolicyType());
         this.cacheConfig = cacheConfig;
         this.cacheStat = new CacheStat(cacheConfig.getName());
     }

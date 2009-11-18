@@ -61,10 +61,8 @@ public class CacheConfig {
      * 设置缓存最大元素数量
      * @param maxAmount 缓存最大元素数量
      */
-    public void setMaxAmount(String maxAmount) {
-        if (maxAmount != null) {
-            this.maxAmount = Integer.parseInt(maxAmount);
-        }
+    public void setMaxAmount(int maxAmount) {
+        this.maxAmount = maxAmount;
     }
 
     /**
@@ -79,10 +77,8 @@ public class CacheConfig {
      * 设置删除过期缓存元素延迟，单位毫秒
      * @param deleteExpireElementDelay 删除过期缓存元素延迟，单位毫秒
      */
-    public void setDeleteExpireElementDelay(String deleteExpireElementDelay) {
-        if (deleteExpireElementDelay != null) {
-            this.deleteExpireElementDelay = Long.parseLong(deleteExpireElementDelay);
-        }
+    public void setDeleteExpireElementDelay(long deleteExpireElementDelay) {
+        this.deleteExpireElementDelay = deleteExpireElementDelay;
     }
 
     /**
@@ -97,10 +93,8 @@ public class CacheConfig {
      * 设置删除过期缓存元素间隔，单位毫秒
      * @param deleteExpireElementInterval 删除过期缓存元素间隔，单位毫秒
      */
-    public void setDeleteExpireElementInterval(String deleteExpireElementInterval) {
-        if (deleteExpireElementInterval != null) {
-            this.deleteExpireElementInterval = Long.parseLong(deleteExpireElementInterval);
-        }
+    public void setDeleteExpireElementInterval(long deleteExpireElementInterval) {
+        this.deleteExpireElementInterval = deleteExpireElementInterval;
     }
 
     /**
@@ -115,10 +109,8 @@ public class CacheConfig {
      * 设置记录缓存统计信息延迟，单位毫秒
      * @param logCacheStatDelay 记录缓存统计信息延迟，单位毫秒
      */
-    public void setLogCacheStatDelay(String logCacheStatDelay) {
-        if (logCacheStatDelay != null) {
-            this.logCacheStatDelay = Long.parseLong(logCacheStatDelay);
-        }
+    public void setLogCacheStatDelay(long logCacheStatDelay) {
+        this.logCacheStatDelay = logCacheStatDelay;
     }
 
     /**
@@ -133,10 +125,8 @@ public class CacheConfig {
      * 设置记录缓存统计信息间隔，单位毫秒
      * @param logCacheStatInterval 记录缓存统计信息间隔，单位毫秒
      */
-    public void setLogCacheStatInterval(String logCacheStatInterval) {
-        if (logCacheStatInterval != null) {
-            this.logCacheStatInterval = Long.parseLong(logCacheStatInterval);
-        }
+    public void setLogCacheStatInterval(long logCacheStatInterval) {
+        this.logCacheStatInterval = logCacheStatInterval;
     }
 
     /**
@@ -151,17 +141,15 @@ public class CacheConfig {
      * 设置存储媒介
      * @param storeMedia 存储媒介
      */
-    public void setStoreMedia(String storeMedia) {
-        if (storeMedia != null) {
-            this.storeMedia = StoreMedia.valueOf(storeMedia);
-        }
+    public void setStoreMedia(StoreMedia storeMedia) {
+        this.storeMedia = storeMedia;
     }
 
     /**
      * 获取退出策略类型
      * @return 退出策略类型
      */
-    public OutPolicyType getOutpolicyType() {
+    public OutPolicyType getOutPolicyType() {
         return outPolicyType;
     }
 
@@ -169,10 +157,8 @@ public class CacheConfig {
      * 设置退出策略类型
      * @param outPolicyType 退出策略类型
      */
-    public void setOutPolicyType(String outPolicyType) {
-        if (outPolicyType != null) {
-            this.outPolicyType = OutPolicyType.valueOf(outPolicyType);
-        }
+    public void setOutPolicyType(OutPolicyType outPolicyType) {
+        this.outPolicyType = outPolicyType;
     }
 
     /*
