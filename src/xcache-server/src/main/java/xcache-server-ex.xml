@@ -10,7 +10,7 @@
         <property name="config">
             <bean class="org.wg.xio.config.Config">
                 <property name="port" value="1234" />
-                <property name="SocketHandlerCount" value="100" />
+                <property name="socketHandlerCount" value="100" />
                 <property name="bufferSize" value="1024" />
                 <property name="syncRead" value="true" />
                 <property name="syncWrite" value="true" />
@@ -56,7 +56,7 @@
     </bean>
     <bean id="defaultCacheConfig" class="org.wg.xcache.config.CacheConfig">
         <property name="name" value="default" />
-        <property name="maxAmount" value="10000" />
+        <!--property name="maxAmount" value="10000" /-->
         <property name="deleteExpireElementDelay" value="60000" />
         <property name="deleteExpireElementInterval" value="60000" />
         <property name="logCacheStatDelay" value="30000" />
@@ -65,5 +65,5 @@
         <property name="outPolicyType" value="FIFO" />
     </bean>
 
-    <bean id="objectSeUtil" class="org.wg.xio.util.HessianObjectSeUtil" />
+    <bean id="objectSeUtil" class="org.wg.xio.util.DefaultObjectSeUtil" />
 </beans>
