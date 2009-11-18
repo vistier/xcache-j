@@ -22,7 +22,9 @@
     <bean id="messageHandler" class="org.wg.xio.ex.command.CommandHandler">
         <property name="commandFactory" ref="commandFactory" />
     </bean>
-    <bean id="executor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor" />
+    <bean id="executor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="100" />
+    </bean>
 
     <!-- 命令配置 -->
     <bean id="commandFactory" class="org.wg.xcache.server.command.XcacheCommandFactory">

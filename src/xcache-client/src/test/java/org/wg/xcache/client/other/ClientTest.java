@@ -65,7 +65,7 @@ public class ClientTest {
             }
 
             PutObjectRequest putObjectRequest = new PutObjectRequest();
-            putObjectRequest.setCacheName("test1");
+            putObjectRequest.setCacheName("default");
             putObjectRequest.setKey("test" + i);
             putObjectRequest.setObject(testObjectBytes);
             putObjectRequest.setLiveTime(10000000);
@@ -87,7 +87,7 @@ public class ClientTest {
 
             SerialObjectRequest serialObjectRequest = new SerialObjectRequest();
             serialObjectRequest.setId(i);
-            serialObjectRequest.setCommandId(i);
+            serialObjectRequest.setCommandId(100001);
             serialObjectRequest.setSerialObject(putObjectRequestBytes);
 
             commandConnector.send(serialObjectRequest);
