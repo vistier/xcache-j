@@ -21,7 +21,7 @@ public class XcacheServer {
      * 启动服务器
      */
     public void start() {
-        new ClassPathXmlApplicationContext(new String[] { "xcache-server-ex.xml" });
+        new ClassPathXmlApplicationContext(new String[] { "xcache-server.xml" });
     }
 
 }
