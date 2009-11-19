@@ -51,6 +51,8 @@ public class Context {
      * @param message 消息
      */
     public void receive(ByteBuffer message) {
+        // TODO 需要优化，采用缓冲队列
+        // 缓冲区复制成本太高
         // --将消息放入缓冲区
         if (this.receivedMessageBuffer == null) {
             this.receivedMessageBuffer = ByteBuffer.allocate(message.limit());
