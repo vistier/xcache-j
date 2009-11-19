@@ -1,8 +1,5 @@
 package org.wg.xcache.client.other;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -12,6 +9,8 @@ import org.wg.xio.config.Supporter;
 import org.wg.xio.ex.LengthMessageHandler;
 import org.wg.xio.ex.command.CommandConnector;
 import org.wg.xio.ex.command.SerialObjectRequest;
+import org.wg.xio.util.DefaultObjectSeUtil;
+import org.wg.xio.util.ObjectSeUtil;
 
 /**
  * 测试客户端
@@ -39,6 +38,8 @@ public class ClientTest {
         commandConnector.connect();
         commandConnector.connect();
 
+        ObjectSeUtil objectSeUtil = new DefaultObjectSeUtil();
+        
         for (int i = 0; i < 100000000; i++) {
             TestObject testObject = new TestObject();
             testObject.setField1(i);
@@ -50,19 +51,7 @@ public class ClientTest {
             testObject.setField7(false);
             testObject.setField8(true);
 
-            byte[] testObjectBytes = null;
-            try {
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                ObjectOutputStream s = new ObjectOutputStream(baos);
-                s.writeObject(testObject);
-                s.flush();
-                s.close();
-                baos.flush();
-                testObjectBytes = baos.toByteArray();
-                baos.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            byte[] testObjectBytes = objectSeUtil.serialize(testObject);
 
             PutObjectRequest putObjectRequest = new PutObjectRequest();
             putObjectRequest.setCacheName("default");
@@ -71,19 +60,7 @@ public class ClientTest {
             putObjectRequest.setLiveTime(10000000);
             putObjectRequest.setIdleTime(10000000);
 
-            byte[] putObjectRequestBytes = null;
-            try {
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                ObjectOutputStream s = new ObjectOutputStream(baos);
-                s.writeObject(putObjectRequest);
-                s.flush();
-                s.close();
-                baos.flush();
-                putObjectRequestBytes = baos.toByteArray();
-                baos.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            byte[] putObjectRequestBytes = objectSeUtil.serialize(putObjectRequest);
 
             SerialObjectRequest serialObjectRequest = new SerialObjectRequest();
             serialObjectRequest.setId(i);
