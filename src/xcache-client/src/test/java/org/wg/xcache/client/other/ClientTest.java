@@ -3,12 +3,17 @@ package org.wg.xcache.client.other;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import org.wg.xcache.protocol.GetObjectRequest;
+import org.wg.xcache.protocol.GetObjectResponse;
 import org.wg.xcache.protocol.PutObjectRequest;
 import org.wg.xio.config.Config;
 import org.wg.xio.config.Supporter;
+import org.wg.xio.context.Context;
 import org.wg.xio.ex.LengthMessageHandler;
 import org.wg.xio.ex.command.CommandConnector;
+import org.wg.xio.ex.command.CommandResponse;
 import org.wg.xio.ex.command.SerialObjectRequest;
+import org.wg.xio.ex.command.SerialObjectResponse;
 import org.wg.xio.util.DefaultObjectSeUtil;
 import org.wg.xio.util.ObjectSeUtil;
 
@@ -39,8 +44,8 @@ public class ClientTest {
         commandConnector.connect();
 
         ObjectSeUtil objectSeUtil = new DefaultObjectSeUtil();
-        
-        for (int i = 0; i < 100000000; i++) {
+
+        for (int i = 0; i < 100; i++) {
             TestObject testObject = new TestObject();
             testObject.setField1(i);
             testObject.setField2(100 + i);
@@ -70,6 +75,26 @@ public class ClientTest {
             commandConnector.send(serialObjectRequest);
 
             Thread.sleep(100);
+        }
+
+        for (int i = 0; i < 100; i++) {
+            GetObjectRequest getObjectRequest = new GetObjectRequest();
+            getObjectRequest.setCacheName("default");
+            getObjectRequest.setKey("test" + i);
+
+            SerialObjectRequest serialObjectRequest = new SerialObjectRequest();
+            serialObjectRequest.setId(i);
+            serialObjectRequest.setCommandId(100003);
+            serialObjectRequest.setSerialObject(objectSeUtil.serialize(getObjectRequest));
+
+            Context context = commandConnector.send(serialObjectRequest);
+            CommandResponse commandResponse = commandConnector.read(context, i, 1000);
+            SerialObjectResponse serialObjectResponse = new SerialObjectResponse(commandResponse);
+            GetObjectResponse getObjectResponse = (GetObjectResponse) objectSeUtil
+                    .deserialize(serialObjectResponse.getSerialObject());
+            TestObject testObject = (TestObject) objectSeUtil.deserialize(getObjectResponse
+                    .getObject());
+            System.out.println("获取到缓存" + "test" + i + "，对象field1=" + testObject.getField1());
         }
     }
 
