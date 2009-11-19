@@ -3,7 +3,7 @@ package org.wg.xcache.server;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * Xcache服务器
+ * Xcache服务器测试
  * @author enychen Nov 19, 2009
  */
 public class XcacheServerTest {
