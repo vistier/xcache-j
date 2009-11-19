@@ -20,7 +20,7 @@ public class SocketReader implements Runnable {
     /** 上下文 */
     protected Context        context;
 
-    /**  */
+    /** socket通道 */
     protected SocketChannel  socketChannel;
 
     /** 消息处理器 */
